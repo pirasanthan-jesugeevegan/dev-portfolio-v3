@@ -1,0 +1,128 @@
+import React from 'react';
+import {
+  Box,
+  Container,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Grid,
+  Text,
+  Close,
+} from 'theme-ui';
+import { FaGithub, FaEye } from 'react-icons/fa';
+
+function Modal({ setShowModal, data }) {
+  const card = data.card;
+  return (
+    <Box
+      sx={styles.box}
+      onClick={() => {
+        setShowModal(false);
+      }}
+    >
+      <Container sx={styles.container}>
+        <Flex>
+          <Box p={2} bg="primary" sx={{ flex: '1 1 auto' }}>
+            <Heading as="h2" variant="modalTitle">
+              {data.name}
+            </Heading>
+          </Box>
+          <Box p={2} bg="muted">
+            <Close
+              onClick={() => {
+                setShowModal(false);
+              }}
+            />
+          </Box>
+        </Flex>
+        <Grid sx={{ fontFamily: 'Arial' }} gap={2} columns={[1, '2fr 2fr']}>
+          <Box p={2} bg="primary">
+            <Text>{data?.card?.description}</Text>
+            <Heading as="h1" variant="lead">
+              {card?.dev === true ? 'Feature :' : 'Test Scenario :'}
+            </Heading>
+            {card?.feature?.map((item, i) => (
+              <Text key={i}>{item}</Text>
+            ))}
+            <Heading as="h1" variant="lead">
+              TECHNOLOGIES USED :
+            </Heading>
+
+            {card?.tech?.map((item) => (
+              <Text>- {item}</Text>
+            ))}
+          </Box>
+          <Box p={2} bg="primary">
+            <Image src={data.img} />
+          </Box>
+        </Grid>
+        {card?.demo !== undefined ? (
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = card?.demo;
+            }}
+            variant="secondary"
+            aria-label="Download CV"
+            style={{ marginRight: '10px' }}
+          >
+            <FaEye style={{ marginRight: '10px' }} />
+            DEMO
+          </Button>
+        ) : (
+          ''
+        )}
+        {card?.code !== undefined ? (
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = card?.code;
+            }}
+            variant="secondary"
+            aria-label="Download CV"
+          >
+            <FaGithub style={{ marginRight: '10px' }} />
+            CODE
+          </Button>
+        ) : (
+          ''
+        )}
+      </Container>
+    </Box>
+  );
+}
+const styles = {
+  box: {
+    position: 'fixed',
+    zIndex: '1',
+    paddingTop: '100px',
+    left: '0',
+    top: '0',
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+    backgroundColor: 'rgb(0,0,0)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  container: {
+    backgroundColor: 'primary',
+    margin: 'auto',
+    padding: '20px',
+    border: '1px solid #888',
+    width: '80%',
+  },
+  button: {
+    backgroundColor: 'secondary',
+    color: '#aaaaaa',
+    float: 'right',
+    fontSize: '28px',
+    fontWeight: 'bold',
+    '&:hover': {
+      color: '#000',
+      textDecoration: 'none',
+      cursor: 'pointer',
+    },
+  },
+};
+export default Modal;

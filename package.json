@@ -1,7 +1,6 @@
 {
-  "name": "@landing/004-next",
+  "name": "dev-portfolio-v3",
   "version": "0.0.1",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -18,9 +18,9 @@ export default function About() {
   return (
     <section sx={styles.banner} id="about">
       <Container sx={styles.banner.container}>
-        <Image src={Header} sx={styles.header} />
         <Grid sx={styles.grid}>
           <Box sx={styles.banner.contentBox}>
+            <Image src={Header} sx={styles.header} />
             <Heading
               as="h1"
               variant="highlight"
@@ -87,9 +87,8 @@ const styles = {
     borderRadius: '8px',
   },
   header: {
-    ml: [null, '20px', '-10px', '-25px', '-20px', '-20px', '-20px'],
-    position: 'absolute',
-    mt: ['-60px', '-65px', '-60px', '-60px', '-65px', '-60px', '-20px'],
+    ml: ['-20px', '-20px', '-10px', '-25px', '-20px', '-20px', '-20px'],
+    mb: ['-24px', '-24px', '-24px', '-24px', '-25px', '-25px', '-20px'],
   },
   banner: {
     overflow: ['hidden', 'initial', null, 'hidden'],

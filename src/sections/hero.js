@@ -39,7 +39,8 @@ const styles = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      padding: '64px',
+      px: ['24px', '44px', '64px'],
+      py: ['44px', '44px', '64px'],
       position: 'static',
       width: ['100%', null, '85%', '55%', '50%', '55%'],
 

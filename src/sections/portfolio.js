@@ -62,7 +62,8 @@ const styles = {
     ],
   },
   header: {
-    ml: ['0px', '0px', '-13px', '-13px', '-13px', '-13px', '-13px', '-13px'],
+    ml: ['-20px', '-20px', '-10px', '-25px', '-20px', '-20px', '-20px'],
+    mb: [null, '5px'],
   },
 
   pricing: {

@@ -135,10 +135,10 @@ export default {
     heroPrimary: {
       color: 'secondary',
       fontSize: [
-        '30px',
+        '40px',
         '42px',
+        '48px',
         '50px',
-        '38px',
         '52px',
         '60px',
         '66px',
@@ -150,7 +150,7 @@ export default {
     },
     heroSecondary: {
       color: 'white',
-      fontSize: [2, 3, 4, 5, null, 6, 7, 8],
+      fontSize: [3, 4, 5, 6, null, 6, 7, 8],
       fontWeight: 'body',
       pr: [0, null, null, null, null, '100px', 1, '15px'],
       mb: ['15px', null, null, null, '20px', null, null, 2],

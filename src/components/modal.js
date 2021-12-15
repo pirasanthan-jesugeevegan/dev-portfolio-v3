@@ -57,37 +57,39 @@ function Modal({ setShowModal, data }) {
             <Image src={data.img} />
           </Box>
         </Grid>
-        {card?.demo !== undefined ? (
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = card?.demo;
-            }}
-            variant="secondary"
-            aria-label="Download CV"
-            style={{ marginRight: '10px' }}
-          >
-            <FaEye style={{ marginRight: '10px' }} />
-            DEMO
-          </Button>
-        ) : (
-          ''
-        )}
-        {card?.code !== undefined ? (
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = card?.code;
-            }}
-            variant="secondary"
-            aria-label="Download CV"
-          >
-            <FaGithub style={{ marginRight: '10px' }} />
-            CODE
-          </Button>
-        ) : (
-          ''
-        )}
+        <Box sx={styles.button}>
+          {card?.demo !== undefined ? (
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = card?.demo;
+              }}
+              variant="secondary"
+              aria-label="Download CV"
+              style={{ marginRight: '10px' }}
+            >
+              <FaEye style={{ marginRight: '10px' }} />
+              DEMO
+            </Button>
+          ) : (
+            ''
+          )}
+          {card?.code !== undefined ? (
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = card?.code;
+              }}
+              variant="secondary"
+              aria-label="Download CV"
+            >
+              <FaGithub style={{ marginRight: '10px' }} />
+              CODE
+            </Button>
+          ) : (
+            ''
+          )}
+        </Box>
       </Container>
     </Box>
   );
@@ -108,21 +110,13 @@ const styles = {
   container: {
     backgroundColor: 'primary',
     margin: 'auto',
-    padding: '20px',
+    py: [4, 4, 4, 6],
+    px: [2, 4, 4, 6],
     border: '1px solid #888',
     width: '80%',
   },
   button: {
-    backgroundColor: 'secondary',
-    color: '#aaaaaa',
-    float: 'right',
-    fontSize: '28px',
-    fontWeight: 'bold',
-    '&:hover': {
-      color: '#000',
-      textDecoration: 'none',
-      cursor: 'pointer',
-    },
+    textAlign: ['center', 'center', 'left', 'left', 'left', 'left'],
   },
 };
 export default Modal;

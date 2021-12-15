@@ -52,7 +52,7 @@ const styles = {
       order: '1',
       flexGrow: '0',
       margin: '96px 0px',
-      boxShadow: '34px 36px 30px rgb(107 133 154 / 12%);',
+      boxShadow: '20px 24px 20px rgb(107 133 154 / 12%);',
     },
   },
 };

@@ -78,11 +78,8 @@ const positionAnim = keyframes`
 
 const styles = {
   header: {
-    marginTop: '25px',
-    // marginBottom: '25px',
     color: 'white',
     fontWeight: 'normal',
-    py: 4,
     width: '100%',
     position: 'absolute',
     top: 0,
@@ -119,6 +116,8 @@ const styles = {
     fontSize: '8px',
   },
   container: {
+    marginTop: '10px',
+    marginBottom: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

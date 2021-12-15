@@ -11,8 +11,8 @@ export default [
     path: 'portfolio',
     label: 'Portfolio',
   },
-  {
-    path: 'blog',
-    label: 'Blog',
-  },
+  // {
+  //   path: 'blog',
+  //   label: 'Blog',
+  // },
 ];

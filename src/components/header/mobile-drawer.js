@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box } from 'theme-ui';
+import { Box, Image } from 'theme-ui';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Drawer from 'components/drawer';
 import { DrawerContext } from '../../contexts/drawer/drawer.context';
@@ -7,18 +7,18 @@ import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { Link } from 'react-scroll';
 import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 import menuItems from './header.data';
-
+import logo from '../../assets/logo.svg';
 const social = [
   {
-    path: '/',
+    path: 'https://www.linkedin.com/in/pirasanth-jesugeevegan/',
     icon: <FaLinkedin />,
   },
   {
-    path: '/',
+    path: 'https://github.com/pirasanthan-jesugeevegan',
     icon: <FaGithub />,
   },
   {
-    path: '/',
+    path: 'https://www.instagram.com/qa_automation_pj/',
     icon: <FaInstagram />,
   },
 ];
@@ -49,6 +49,10 @@ const MobileDrawer = () => {
     >
       <Scrollbars autoHide>
         <Box sx={styles.content}>
+          <Image
+            sx={{ width: '80px', alignSelf: 'center', paddingBottom: '20px' }}
+            src={logo}
+          />
           <Box sx={styles.menu}>
             {menuItems.map(({ path, label }, i) => (
               <Link
@@ -69,7 +73,14 @@ const MobileDrawer = () => {
             <Box sx={styles.social}>
               {social.map(({ path, icon }, i) => (
                 <Box as="span" key={i} sx={styles.social.icon}>
-                  <Link to={path}>{icon}</Link>
+                  <Link
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = path;
+                    }}
+                  >
+                    {icon}
+                  </Link>
                 </Box>
               ))}
             </Box>
@@ -115,7 +126,7 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    pt: '100px',
+    pt: '80px',
     pb: '40px',
     px: '30px',
   },
@@ -160,7 +171,7 @@ const styles = {
       alignItems: 'center',
       justifyContent: 'center',
       color: 'text',
-      fontSize: 14,
+      fontSize: 26,
       mr: '15px',
       transition: 'all 0.25s',
       cursor: 'pointer',

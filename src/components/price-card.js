@@ -70,7 +70,6 @@ export default function PriceCard({ data }) {
         newArray.push(Browserstack);
     }
   });
-  console.log(newArray);
   return (
     <Card sx={styles.pricingBox}>
       <Box

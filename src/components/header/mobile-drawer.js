@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, Image } from 'theme-ui';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Drawer from 'components/drawer';
@@ -25,6 +25,12 @@ const social = [
 
 const MobileDrawer = () => {
   const { state, dispatch } = useContext(DrawerContext);
+  console.log(state);
+  const setCurrentHero = () => {
+    state.isOpen = !state.isOpen;
+    console.log(state);
+  };
+  useEffect(() => {}, [state.isOpen]);
 
   // Toggle drawer
   const toggleHandler = React.useCallback(() => {
@@ -43,7 +49,7 @@ const MobileDrawer = () => {
       }
       open={state.isOpen}
       toggleHandler={toggleHandler}
-      closeButton={<IoMdClose size="24px" color="#000000" />}
+      closeButton={<IoMdClose size="24px" />}
       drawerStyle={styles.drawer}
       closeBtnStyle={styles.close}
     >
@@ -61,8 +67,8 @@ const MobileDrawer = () => {
                 spy={true}
                 smooth={true}
                 offset={-70}
-                duration={500}
                 key={i}
+                onClick={() => setCurrentHero()}
               >
                 {label}
               </Link>
@@ -74,6 +80,7 @@ const MobileDrawer = () => {
               {social.map(({ path, icon }, i) => (
                 <Box as="span" key={i} sx={styles.social.icon}>
                   <Link
+                    to={path}
                     onClick={(e) => {
                       e.preventDefault();
                       window.location.href = path;

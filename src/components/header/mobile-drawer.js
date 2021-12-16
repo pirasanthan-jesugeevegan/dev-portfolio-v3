@@ -3,32 +3,30 @@ import { Box, Image } from 'theme-ui';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Drawer from 'components/drawer';
 import { DrawerContext } from '../../contexts/drawer/drawer.context';
-import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { Link } from 'react-scroll';
-import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+import { Icon } from '@iconify/react';
 import menuItems from './header.data';
 import logo from '../../assets/logo.svg';
 const social = [
   {
     path: 'https://www.linkedin.com/in/pirasanth-jesugeevegan/',
-    icon: <FaLinkedin />,
+    icon: <Icon icon="akar-icons:linkedin-fill" />,
   },
   {
     path: 'https://github.com/pirasanthan-jesugeevegan',
-    icon: <FaGithub />,
+    icon: <Icon icon="akar-icons:github-fill" />,
   },
   {
     path: 'https://www.instagram.com/qa_automation_pj/',
-    icon: <FaInstagram />,
+    icon: <Icon icon="akar-icons:instagram-fill" />,
   },
 ];
 
 const MobileDrawer = () => {
   const { state, dispatch } = useContext(DrawerContext);
-  console.log(state);
+
   const setCurrentHero = () => {
     state.isOpen = !state.isOpen;
-    console.log(state);
   };
   useEffect(() => {}, [state.isOpen]);
 
@@ -44,12 +42,12 @@ const MobileDrawer = () => {
       width="320px"
       drawerHandler={
         <Box sx={styles.handler}>
-          <IoMdMenu size="26px" />
+          <Icon icon="bytesize:menu" width="26" height="26" />
         </Box>
       }
       open={state.isOpen}
       toggleHandler={toggleHandler}
-      closeButton={<IoMdClose size="24px" />}
+      closeButton={<Icon icon="ep:close-bold" width="24" height="24" />}
       drawerStyle={styles.drawer}
       closeBtnStyle={styles.close}
     >

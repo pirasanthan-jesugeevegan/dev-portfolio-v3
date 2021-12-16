@@ -12,7 +12,7 @@ import {
 } from 'theme-ui';
 import Profile from '../assets/Profile.png';
 import Header from '../assets/About.png';
-import { FaDownload } from 'react-icons/fa';
+import { Icon } from '@iconify/react';
 
 export default function About() {
   return (
@@ -50,7 +50,7 @@ export default function About() {
                 variant="secondary"
                 aria-label="Download CV"
               >
-                <FaDownload />
+                <Icon icon="feather:download" />
                 Download CV (PDF)
               </Button>
             </Flex>

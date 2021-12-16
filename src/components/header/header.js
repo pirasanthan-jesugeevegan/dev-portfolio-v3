@@ -7,7 +7,7 @@ import LogoWhite from 'assets/logo.svg';
 import { DrawerProvider } from '../../contexts/drawer/drawer.provider';
 import MobileDrawer from './mobile-drawer';
 import menuItems from './header.data';
-import { FaDownload } from 'react-icons/fa';
+import { Icon } from '@iconify/react';
 
 export default function Header({ className }) {
   return (
@@ -54,7 +54,8 @@ export default function Header({ className }) {
             variant="secondary"
             aria-label="CV"
           >
-            <FaDownload /> CV <span style={styles.pdf}> (PDF)</span>
+            <Icon icon="feather:download" /> CV{' '}
+            <span style={styles.pdf}> (PDF)</span>
           </Button>
 
           <MobileDrawer />

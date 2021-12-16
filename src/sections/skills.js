@@ -1,87 +1,38 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+import { useState, useEffect } from 'react';
 import { Container, Grid, Heading, Image } from 'theme-ui';
 import FeatureCard from 'components/feature-card.js';
-import React from 'assets/icons/react.svg';
-import Puppeteer from 'assets/icons/puppeteer.svg';
-import Node from 'assets/icons/node.svg';
-import Selenium from 'assets/icons/selenium.svg';
-import Cucumber from 'assets/icons/cucumber.svg';
-import Appium from 'assets/icons/appium.svg';
-import K6 from 'assets/icons/k6.svg';
-import Webdriver from 'assets/icons/webdriver.svg';
-import Cypress from 'assets/icons/cypress.svg';
 import Header from 'assets/Skills.png';
-const data = [
-  {
-    id: 1,
-    imgSrc: React,
-    altText: 'react.js',
-    title: 'React JS',
-  },
-  {
-    id: 2,
-    imgSrc: Puppeteer,
-    altText: 'puppeteer',
-    title: 'Puppeteer',
-  },
-  {
-    id: 3,
-    imgSrc: Node,
-    altText: 'node.js',
-    title: 'Node.js',
-  },
-  {
-    id: 4,
-    imgSrc: Selenium,
-    altText: 'selenium',
-    title: 'Selenium',
-  },
-  {
-    id: 5,
-    imgSrc: Cucumber,
-    altText: 'cucumber.io',
-    title: 'Cucumber.io',
-  },
-  {
-    id: 6,
-    imgSrc: Appium,
-    altText: 'appium',
-    title: 'Appium',
-  },
-  {
-    id: 7,
-    imgSrc: K6,
-    altText: 'k6.io',
-    title: 'K6.io',
-  },
-  {
-    id: 8,
-    imgSrc: Webdriver,
-    altText: 'webdriver.io',
-    title: 'Webdriver.io',
-  },
-  {
-    id: 9,
-    imgSrc: Cypress,
-    altText: 'cypress',
-    title: 'Cypress.io',
-  },
-];
+import db from '../../firebase';
+import { collection, onSnapshot, orderBy, query } from '@firebase/firestore';
 
 export default function Skills() {
+  const [skills, setSkills] = useState([]);
+
+  useEffect(() => {
+    const collectionRef = collection(db, 'skills');
+    const q = query(collectionRef, orderBy('title'));
+    const unsbscribe = onSnapshot(q, (querySnapshot) => {
+      setSkills(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+    });
+    return unsbscribe;
+  }, []);
+
   return (
     <section sx={{ variant: 'section.feature' }} id="skills">
       <Container>
         <Image src={Header} sx={styles.head} />
         <Grid sx={styles.grid}>
-          {data.map((item) => (
+          {skills.map((item) => (
             <FeatureCard
               key={item.id}
               src={item.imgSrc}
               alt={item.title}
               title={item.title}
-              text={item.text}
+              text={item.altText}
             />
           ))}
         </Grid>

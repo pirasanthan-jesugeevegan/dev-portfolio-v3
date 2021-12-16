@@ -14,7 +14,7 @@ export default function IndexPage() {
     <ThemeProvider theme={theme}>
       <StickyProvider>
         <Layout>
-          <SEO title="Home | Portfolio" />
+          <SEO />
           <Hero />
           <About />
           <Skills />

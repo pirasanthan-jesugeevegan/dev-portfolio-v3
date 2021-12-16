@@ -1,14 +1,16 @@
 /** @jsx jsx */
-import { jsx, Image, Box, Heading, Text } from 'theme-ui';
+import { jsx, Image, Box, Heading } from 'theme-ui';
+import { Icon } from '@iconify/react';
+import K6 from 'assets/icons/k6.svg';
 
-export default function FeatureCard({
-  src,
-  altText = 'default alt text',
-  title,
-}) {
+export default function FeatureCard({ src, alt, title }) {
   return (
     <Box sx={styles.card}>
-      <Image src={src} alt={altText} sx={styles.img} />
+      {src === 'K6' ? (
+        <Image src={K6} alt={alt} sx={styles.img} />
+      ) : (
+        <Icon icon={src} sx={styles.img} />
+      )}
       <Box sx={styles.wrapper}>
         <Heading sx={styles.wrapper.title}>{title}</Heading>
       </Box>
@@ -27,6 +29,9 @@ const styles = {
     height: 'auto',
     flexShrink: 0,
     mr: [3, 4, null, null, 3, 4, null, 5],
+    path: {
+      fill: '#ffc35b',
+    },
   },
   wrapper: {
     width: '100%',

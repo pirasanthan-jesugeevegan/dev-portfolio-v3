@@ -10,7 +10,7 @@ import {
   Text,
   Close,
 } from 'theme-ui';
-import { FaGithub, FaEye } from 'react-icons/fa';
+import { Icon } from '@iconify/react';
 
 function Modal({ setShowModal, data }) {
   const card = data.card;
@@ -68,7 +68,7 @@ function Modal({ setShowModal, data }) {
               aria-label="Download CV"
               style={{ marginRight: '10px' }}
             >
-              <FaEye style={{ marginRight: '10px' }} />
+              <Icon icon="bx:bx-show" style={{ marginRight: '10px' }} />
               DEMO
             </Button>
           ) : (
@@ -83,7 +83,10 @@ function Modal({ setShowModal, data }) {
               variant="secondary"
               aria-label="Download CV"
             >
-              <FaGithub style={{ marginRight: '10px' }} />
+              <Icon
+                icon="akar-icons:github-fill"
+                style={{ marginRight: '10px' }}
+              />
               CODE
             </Button>
           ) : (

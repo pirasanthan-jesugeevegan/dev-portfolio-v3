@@ -48,7 +48,7 @@ export default function Header({ className }) {
             onClick={(e) => {
               e.preventDefault();
               window.location.href =
-                'http://pirasanth.com/Pirasanthan_Jesugeevegan_CV.pdf';
+                'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=3cf94649-9405-4f32-88e3-0a8faf71826f';
             }}
             className="donate__btn"
             variant="secondary"

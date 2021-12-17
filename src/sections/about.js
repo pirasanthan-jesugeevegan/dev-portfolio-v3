@@ -55,7 +55,7 @@ export default function About() {
               </Button>
             </Flex>
           </Box>
-          <Box sx={styles.banner.contentBox} style={{ alignItems: 'center' }}>
+          <Box sx={styles.banner.portfolio} style={{ alignItems: 'center' }}>
             <Box sx={styles.profileBackground}>
               <Image variant="profileImage" src={Profile} />
             </Box>
@@ -85,6 +85,7 @@ const styles = {
   profileBackground: {
     background: '#252734',
     borderRadius: '8px',
+    width: [null, null, null, null, '50vw'],
   },
   header: {
     ml: ['-20px', '-20px', '-10px', '-25px', '-20px', '-20px', '-20px'],
@@ -99,6 +100,9 @@ const styles = {
     backgroundColor: 'primary',
     container: {
       display: 'flex',
+    },
+    portfolio: {
+      pt: [0, null, null, 5, 5, 5, 5, 7],
     },
     contentBox: {
       display: 'flex',

@@ -12,7 +12,7 @@ export default function Skills() {
 
   useEffect(() => {
     const collectionRef = collection(db, 'skills');
-    const q = query(collectionRef, orderBy('title'));
+    const q = query(collectionRef, orderBy('order'));
     const unsbscribe = onSnapshot(q, (querySnapshot) => {
       setSkills(
         querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))

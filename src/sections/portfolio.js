@@ -14,7 +14,7 @@ export default function Portfolio() {
   useEffect(() => {
     const collectionRef = collection(db, 'projects');
 
-    const q = query(collectionRef, orderBy('name'));
+    const q = query(collectionRef, orderBy('order'));
 
     const unsbscribe = onSnapshot(q, (querySnapshot) => {
       setProjects(

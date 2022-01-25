@@ -12,6 +12,12 @@ import Portfolio from 'sections/portfolio';
 import Blog from 'sections/blog';
 
 export default function IndexPage({ posts }) {
+  const IsPost = (posts) => {
+    for (const element of posts) {
+      if (element.publish === true) return true;
+    }
+  };
+  IsPost(posts);
   return (
     <ThemeProvider theme={theme}>
       <StickyProvider>
@@ -21,7 +27,7 @@ export default function IndexPage({ posts }) {
           <About />
           <Skills />
           <Portfolio />
-          {posts && <Blog posts={posts} />}
+          {IsPost(posts) && <Blog posts={posts} />}
         </Layout>
       </StickyProvider>
     </ThemeProvider>

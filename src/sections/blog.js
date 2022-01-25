@@ -9,9 +9,9 @@ export default function Blog({ posts }) {
       <Container>
         <Image src={Title} sx={styles.header} />
         <Grid sx={styles.grid}>
-          {posts.map((post) => (
-            <BlogCard data={post} key={post._id} />
-          ))}
+          {posts.map(
+            (post) => post.publish && <BlogCard data={post} key={post._id} />
+          )}
         </Grid>
       </Container>
     </section>

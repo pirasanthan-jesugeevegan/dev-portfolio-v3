@@ -9,6 +9,7 @@ out/
 # production
 build
 /build
+blog/dist
 
 # misc
 .DS_Store

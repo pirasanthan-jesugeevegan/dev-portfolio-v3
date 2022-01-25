@@ -16,15 +16,6 @@ class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600"
             rel="stylesheet"
           />
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-QLQ045WDTM"
-          ></script>
-          <script>
-            window.dataLayer = window.dataLayer || []; function gtag()
-            {dataLayer.push(arguments)}
-            gtag('js', new Date()); gtag('config', 'G-QLQ045WDTM');
-          </script>
         </Head>
         <body>
           <Main />

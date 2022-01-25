@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+blog/node_modules
 
 # next.js
 /.next/
@@ -8,6 +9,7 @@ out/
 # production
 build
 /build
+blog/dist
 
 # misc
 .DS_Store

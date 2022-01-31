@@ -26,7 +26,7 @@ export default function Portfolio() {
   return (
     <section id="portfolio" sx={styles.pricing}>
       <Container>
-        <Image src={Title} sx={styles.header} />
+        <Image src={Title} sx={styles.header} alt="portfolio" />
         <Grid sx={styles.grid}>
           {projects.map((packageData) => (
             <PriceCard data={packageData} key={packageData.name} />

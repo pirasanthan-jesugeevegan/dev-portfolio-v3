@@ -19,6 +19,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'keyword',
+      title: 'Keywords',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',

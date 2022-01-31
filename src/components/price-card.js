@@ -85,7 +85,7 @@ export default function PriceCard({ data }) {
               textAlign: 'center',
             }}
           >
-            <Image src={data.img} />
+            <Image src={data.img} alt={data.name} />
             <Text className="package__name" sx={styles.heading}>
               {data.name}
             </Text>

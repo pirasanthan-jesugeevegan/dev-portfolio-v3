@@ -11,11 +11,41 @@ import MobileDrawer from '../../components/header/mobile-drawer';
 import { sanityClient, urlFor } from '../../../sanity';
 import { Icon } from '@iconify/react';
 import BlogPost from '../../components/blog-post';
-
+import Head from 'next/head';
 export default function Post({ post }) {
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>
+        <Head>
+          {/* Primary Meta Tags */}
+          <title>Blog | {post.title}</title>
+          <meta name="title" content={post.title}></meta>
+          <meta name="description" content={post.description}></meta>
+          <meta name="keywords" content={post.keyword}></meta>
+
+          {/* Open Graph / Facebook  */}
+          <meta property="og:type" content="website"></meta>
+          <meta
+            property="og:url"
+            content={`https://www.pirasanth.com/post/${post.slug.current}`}
+          ></meta>
+          <meta property="og:title" content={post.title}></meta>
+          <meta property="og:description" content={post.description}></meta>
+          <meta property="og:image" content=""></meta>
+
+          {/* Twitter */}
+          <meta property="twitter:card" content="summary_large_image"></meta>
+          <meta
+            property="twitter:url"
+            content={`https://www.pirasanth.com/post/${post.slug.current}`}
+          ></meta>
+          <meta property="twitter:title" content={post.title}></meta>
+          <meta
+            property="twitter:description"
+            content={post.description}
+          ></meta>
+          <meta property="twitter:image" content=""></meta>
+        </Head>
         <header sx={styles.header} id="header">
           <Container sx={styles.container}>
             <Logo src={LogoWhite} />
@@ -134,25 +164,6 @@ const styles = {
   },
 };
 
-// export const getStaticPaths = async () => {
-//   const query = `*[_type == "post]{
-//         _id,
-//         slug {
-//             current
-//         }
-//     }`;
-//   const posts = await sanityClient.fetch(query);
-//   const paths = posts.map((post) => ({
-//     parms: {
-//       slug: post.slug.current,
-//     },
-//   }));
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   };
-// };
-
 export const getServerSideProps = async (pageContext) => {
   const pageSlug = pageContext.query.slug;
   const query = `*[_type == "post" && slug.current == $pageSlug] [0] {
@@ -166,7 +177,8 @@ export const getServerSideProps = async (pageContext) => {
         description,
         mainImage,
         slug,
-        body
+        body,
+        keyword
     }
     `;
   const post = await sanityClient.fetch(query, { pageSlug });

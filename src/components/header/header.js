@@ -21,6 +21,7 @@ export default function Header({ className }) {
               <Link
                 activeClass="active"
                 to={path}
+                href={`#${path}`}
                 spy={true}
                 smooth={true}
                 offset={-70}
@@ -133,6 +134,8 @@ const styles = {
     a: {
       fontSize: '16px',
       fontWeight: '400',
+      color: 'white',
+      textDecoration: 'none',
       px: 25,
       cursor: 'pointer',
       lineHeight: '1.2',

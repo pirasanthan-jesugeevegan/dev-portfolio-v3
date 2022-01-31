@@ -10,6 +10,7 @@ import {
   Grid,
 } from 'theme-ui';
 import PortableText from 'react-portable-text';
+import Footer from './footer/footer';
 import { urlFor } from '../../sanity';
 
 export default function BlogPost({ data }) {
@@ -21,10 +22,12 @@ export default function BlogPost({ data }) {
           sx={{
             width: '-webkit-fill-available',
             paddingTop: '100px',
+            minWidth: '-1px',
             paddingBottom: '5%',
           }}
+          alt={data.title}
         />
-        <Box sx={{ padding: '0% 25%' }}>
+        <Box sx={styles.box}>
           <Heading
             as="h1"
             variant="highlight"
@@ -36,7 +39,10 @@ export default function BlogPost({ data }) {
             {data.description}
           </Text>
           <Flex sx={{ marginTop: '-10px' }}>
-            <Avatar src={urlFor(data.author.image)} />
+            <Avatar
+              src={urlFor(data.author.image)}
+              alt={`Published by ${data.author.name}`}
+            />
             <Text
               as="p"
               variant="primaryText"
@@ -114,17 +120,22 @@ export default function BlogPost({ data }) {
                   sx={{
                     width: '-webkit-fill-available',
                   }}
+                  alt={asset._ref}
                 />
               ),
             }}
           />
         </Box>
       </Grid>
+      <Footer />
     </section>
   );
 }
 
 const styles = {
+  box: {
+    px: [5, 5, 5, 5, 11, '25%'],
+  },
   banner: {
     container: {
       display: 'flex',

@@ -7,7 +7,7 @@ export default function Blog({ posts }) {
   return (
     <section id="blog" sx={styles.pricing}>
       <Container>
-        <Image src={Title} sx={styles.header} />
+        <Image src={Title} sx={styles.header} alt="blog" />
         <Grid sx={styles.grid}>
           {posts.map(
             (post) => post.publish && <BlogCard data={post} key={post._id} />

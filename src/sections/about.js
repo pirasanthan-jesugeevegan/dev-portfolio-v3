@@ -20,7 +20,7 @@ export default function About() {
       <Container sx={styles.banner.container}>
         <Grid sx={styles.grid}>
           <Box sx={styles.banner.contentBox}>
-            <Image src={Header} sx={styles.header} />
+            <Image src={Header} sx={styles.header} alt="about" />
             <Heading
               as="h1"
               variant="highlight"

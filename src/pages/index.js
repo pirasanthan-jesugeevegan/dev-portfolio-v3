@@ -43,6 +43,7 @@ export const getServerSideProps = async () => {
   name,
   image
 },
+keyword,
 slug,
 mainImage,
 description

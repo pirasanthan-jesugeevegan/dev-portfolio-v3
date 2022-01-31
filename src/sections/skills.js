@@ -24,7 +24,7 @@ export default function Skills() {
   return (
     <section sx={{ variant: 'section.feature' }} id="skills">
       <Container>
-        <Image src={Header} sx={styles.head} />
+        <Image src={Header} sx={styles.head} alt="skills" />
         <Grid sx={styles.grid}>
           {skills.map((item) => (
             <FeatureCard

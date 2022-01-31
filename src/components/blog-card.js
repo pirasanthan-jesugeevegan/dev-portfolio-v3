@@ -13,7 +13,11 @@ export default function BlogCard({ data }) {
                 padding: '0px',
               }}
             >
-              <Image src={urlFor(data.mainImage)} sx={styles.image} />
+              <Image
+                src={urlFor(data.mainImage)}
+                sx={styles.image}
+                alt={data.title}
+              />
               <Text className="package__name" sx={styles.title}>
                 {data.title}
               </Text>

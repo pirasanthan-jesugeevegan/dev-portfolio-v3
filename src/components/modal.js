@@ -54,7 +54,7 @@ function Modal({ setShowModal, data }) {
             ))}
           </Box>
           <Box p={2} bg="primary">
-            <Image src={data.img} />
+            <Image src={data.img} alt={data.name} />
           </Box>
         </Grid>
         <Box sx={styles.button}>

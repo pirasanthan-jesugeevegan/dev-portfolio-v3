@@ -15,10 +15,10 @@ export default function CustomApp({ Component, pageProps }) {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <script
           strategy="lazyOnload"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-QLQ045WDTM`}
+          src={`https://www.googletagmanager.com/gtag/js?id=UA-218082026-1`}
         />
 
         <script strategy="lazyOnload">
@@ -26,12 +26,12 @@ export default function CustomApp({ Component, pageProps }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-QLQ045WDTM', {
+            gtag('config', 'UA-218082026-1', {
               page_path: window.location.pathname,
             });
                 `}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <Component {...pageProps} />
     </>

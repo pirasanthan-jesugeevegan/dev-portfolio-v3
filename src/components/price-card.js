@@ -18,6 +18,7 @@ import Netlify from 'assets/icons/netifly.svg';
 import Sass from 'assets/icons/sass.svg';
 import Javascript from 'assets/icons/javascript.svg';
 import { urlFor } from '../../sanity';
+import { logEvent } from '../analytics/index';
 
 export default function PriceCard({ data }) {
   const [showModal, setShowModal] = useState(false);
@@ -76,6 +77,11 @@ export default function PriceCard({ data }) {
       <Box
         onClick={() => {
           setShowModal(true);
+          logEvent({
+            action: `Project_${data.name}`,
+            category: 'clicks',
+            label: 'click_project',
+          });
         }}
       >
         <Flex sx={styles.pricingHeader}>

@@ -2,7 +2,7 @@
 import { jsx, Container, Grid, Image } from 'theme-ui';
 import BlogCard from 'components/blog-card';
 import Title from 'assets/Blog.png';
-
+import { logEvent } from '../analytics/index';
 export default function Blog({ posts }) {
   return (
     <section id="blog" sx={styles.pricing}>
@@ -10,7 +10,21 @@ export default function Blog({ posts }) {
         <Image src={Title} sx={styles.header} alt="blog" />
         <Grid sx={styles.grid}>
           {posts.map(
-            (post) => post.publish && <BlogCard data={post} key={post._id} />
+            (post) =>
+              post.publish && (
+                <BlogCard
+                  data={post}
+                  key={post._id}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    logEvent({
+                      action: 'dddd',
+                      category: 'clicks',
+                      label: 'click_cv',
+                    });
+                  }}
+                />
+              )
           )}
         </Grid>
       </Container>

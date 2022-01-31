@@ -13,7 +13,7 @@ import {
 import Profile from '../assets/Profile.png';
 import Header from '../assets/About.png';
 import { Icon } from '@iconify/react';
-
+import { logEvent } from '../analytics/index';
 export default function About() {
   return (
     <section sx={styles.banner} id="about">
@@ -44,6 +44,11 @@ export default function About() {
               <Button
                 onClick={(e) => {
                   e.preventDefault();
+                  logEvent({
+                    action: 'CV_MainPage',
+                    category: 'clicks',
+                    label: 'click_cv',
+                  });
                   window.location.href =
                     'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=3cf94649-9405-4f32-88e3-0a8faf71826f';
                 }}
@@ -57,7 +62,7 @@ export default function About() {
           </Box>
           <Box sx={styles.banner.portfolio} style={{ alignItems: 'center' }}>
             <Box sx={styles.profileBackground}>
-              <Image variant="profileImage" src={Profile} />
+              <Image variant="profileImage" src={Profile} alt="Profile" />
             </Box>
           </Box>
         </Grid>

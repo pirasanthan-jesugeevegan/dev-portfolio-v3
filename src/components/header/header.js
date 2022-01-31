@@ -8,6 +8,7 @@ import { DrawerProvider } from '../../contexts/drawer/drawer.provider';
 import MobileDrawer from './mobile-drawer';
 import menuItems from './header.data';
 import { Icon } from '@iconify/react';
+import { logEvent } from 'analytics/index';
 
 export default function Header({ className }) {
   return (
@@ -36,6 +37,11 @@ export default function Header({ className }) {
           <Button
             onClick={(e) => {
               e.preventDefault();
+              logEvent({
+                action: 'Contact me',
+                category: 'clicks',
+                label: 'click_contact',
+              });
               window.location.href =
                 'https://uk.linkedin.com/in/pirasanth-jesugeevegan';
             }}
@@ -48,6 +54,11 @@ export default function Header({ className }) {
           <Button
             onClick={(e) => {
               e.preventDefault();
+              logEvent({
+                action: 'CV_Header',
+                category: 'clicks',
+                label: 'click_cv',
+              });
               window.location.href =
                 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=3cf94649-9405-4f32-88e3-0a8faf71826f';
             }}

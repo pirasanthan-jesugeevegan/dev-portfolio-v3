@@ -11,6 +11,7 @@ import {
   Close,
 } from 'theme-ui';
 import { Icon } from '@iconify/react';
+import { urlFor } from '../../sanity';
 
 function Modal({ setShowModal, data }) {
   const card = data.card;
@@ -54,7 +55,7 @@ function Modal({ setShowModal, data }) {
             ))}
           </Box>
           <Box p={2} bg="primary">
-            <Image src={data.img} alt={data.name} />
+            <Image src={urlFor(data.image)} alt={data.name} />
           </Box>
         </Grid>
         <Box sx={styles.button}>

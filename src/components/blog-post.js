@@ -40,6 +40,7 @@ export default function BlogPost({ data }) {
           </Text>
           <Flex sx={{ marginTop: '-10px' }}>
             <Avatar
+              sx={{ minWidth: 'auto' }}
               src={urlFor(data.author.image)}
               alt={`Published by ${data.author.name}`}
             />
@@ -48,8 +49,9 @@ export default function BlogPost({ data }) {
               variant="primaryText"
               sx={{ margin: '10px 0px', padding: '0px 10px 50px 10px' }}
             >
-              Blog post by {data.author.name} - Published at{' '}
-              {new Date(data._createdAt).toLocaleString()}
+              Blog post by{' '}
+              <span style={{ color: '#ffc35b' }}>{data.author.name}</span> -
+              Published at {new Date(data._createdAt).toLocaleString()}
             </Text>
           </Flex>
 

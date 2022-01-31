@@ -1,36 +1,20 @@
 /** @jsx jsx */
 import { jsx, Container, Grid, Image } from 'theme-ui';
 import PriceCard from 'components/price-card';
-import { useState, useEffect } from 'react';
-
 import Title from 'assets/Portfolio.png';
-import db from '../../firebase';
 
-import { collection, onSnapshot, orderBy, query } from '@firebase/firestore';
-
-export default function Portfolio() {
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    const collectionRef = collection(db, 'projects');
-
-    const q = query(collectionRef, orderBy('order'));
-
-    const unsbscribe = onSnapshot(q, (querySnapshot) => {
-      setProjects(
-        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    });
-    return unsbscribe;
-  }, []);
+export default function Portfolio({ projects }) {
   return (
     <section id="portfolio" sx={styles.pricing}>
       <Container>
         <Image src={Title} sx={styles.header} alt="portfolio" />
         <Grid sx={styles.grid}>
-          {projects.map((packageData) => (
-            <PriceCard data={packageData} key={packageData.name} />
-          ))}
+          {projects.map(
+            (packageData) =>
+              packageData.display && (
+                <PriceCard data={packageData} key={packageData.name} />
+              )
+          )}
         </Grid>
       </Container>
     </section>

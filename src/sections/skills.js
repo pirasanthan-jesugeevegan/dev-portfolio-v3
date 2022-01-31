@@ -1,26 +1,10 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useState, useEffect } from 'react';
-import { Container, Grid, Heading, Image } from 'theme-ui';
+import { Container, Grid, Image } from 'theme-ui';
 import FeatureCard from 'components/feature-card.js';
 import Header from 'assets/Skills.png';
-import db from '../../firebase';
-import { collection, onSnapshot, orderBy, query } from '@firebase/firestore';
 
-export default function Skills() {
-  const [skills, setSkills] = useState([]);
-
-  useEffect(() => {
-    const collectionRef = collection(db, 'skills');
-    const q = query(collectionRef, orderBy('order'));
-    const unsbscribe = onSnapshot(q, (querySnapshot) => {
-      setSkills(
-        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    });
-    return unsbscribe;
-  }, []);
-
+export default function Skills({ skills }) {
   return (
     <section sx={{ variant: 'section.feature' }} id="skills">
       <Container>

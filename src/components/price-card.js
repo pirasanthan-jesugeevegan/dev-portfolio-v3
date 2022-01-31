@@ -17,6 +17,7 @@ import Browserstack from 'assets/icons/browserstack.svg';
 import Netlify from 'assets/icons/netifly.svg';
 import Sass from 'assets/icons/sass.svg';
 import Javascript from 'assets/icons/javascript.svg';
+import { urlFor } from '../../sanity';
 
 export default function PriceCard({ data }) {
   const [showModal, setShowModal] = useState(false);
@@ -85,7 +86,7 @@ export default function PriceCard({ data }) {
               textAlign: 'center',
             }}
           >
-            <Image src={data.img} alt={data.name} />
+            <Image src={urlFor(data.image)} alt={data.name} />
             <Text className="package__name" sx={styles.heading}>
               {data.name}
             </Text>

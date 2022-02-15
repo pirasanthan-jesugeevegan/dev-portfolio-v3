@@ -3,7 +3,7 @@ import { urlFor } from '../../sanity';
 import Link from 'next/link';
 export default function BlogCard({ data }) {
   return (
-    <Link href={`/post/${data.slug.current}`}>
+    <Link href={`/blog/${data.slug.current}`}>
       <Card sx={styles.pricingBox}>
         <Box>
           <Flex sx={styles.pricingHeader}>

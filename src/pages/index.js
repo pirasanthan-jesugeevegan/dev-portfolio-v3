@@ -11,13 +11,13 @@ import Skills from 'sections/skills';
 import Portfolio from 'sections/portfolio';
 import Blog from 'sections/blog';
 
-export default function IndexPage({ posts, skills, projects }) {
-  const IsPost = (posts) => {
-    for (const element of posts) {
+export default function IndexPage({ blogs, skills, projects }) {
+  const IsPost = (blogs) => {
+    for (const element of blogs) {
       if (element.publish === true) return true;
     }
   };
-  IsPost(posts);
+  IsPost(blogs);
   return (
     <ThemeProvider theme={theme}>
       <StickyProvider>
@@ -27,7 +27,7 @@ export default function IndexPage({ posts, skills, projects }) {
           <About />
           <Skills skills={skills} />
           <Portfolio projects={projects} />
-          {IsPost(posts) && <Blog posts={posts} />}
+          {IsPost(blogs) && <Blog blogs={blogs} />}
         </Layout>
       </StickyProvider>
     </ThemeProvider>
@@ -69,14 +69,14 @@ description
 }
   `;
 
-  const posts = await sanityClient.fetch(postQuery);
+  const blogs = await sanityClient.fetch(postQuery);
   const skills = await sanityClient.fetch(skillQuery);
   const projects = await sanityClient.fetch(projectQuery);
 
-  if (!posts.length && skills.length && projects.length) {
+  if (!blogs.length && skills.length && projects.length) {
     return {
       props: {
-        posts: [],
+        blogs: [],
         skills: [],
         projects: [],
       },
@@ -84,7 +84,7 @@ description
   } else {
     return {
       props: {
-        posts,
+        blogs,
         skills,
         projects,
       },

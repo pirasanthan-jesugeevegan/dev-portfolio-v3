@@ -3,13 +3,13 @@ import { jsx, Container, Grid, Image } from 'theme-ui';
 import BlogCard from 'components/blog-card';
 import Title from 'assets/Blog.png';
 import { logEvent } from '../analytics/index';
-export default function Blog({ posts }) {
+export default function Blog({ blogs }) {
   return (
     <section id="blog" sx={styles.pricing}>
       <Container>
         <Image src={Title} sx={styles.header} alt="blog" />
         <Grid sx={styles.grid}>
-          {posts.map(
+          {blogs.map(
             (post) =>
               post.publish && (
                 <BlogCard

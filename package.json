@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mattjennings/react-modal": "^1.0.3",
+    "@sanity/block-content-to-react": "^3.0.0",
     "dotenv": "^8.2.0",
     "firebase": "^9.6.1",
     "framer-motion": "^2.7.5",
@@ -30,6 +31,7 @@
     "react-refractor": "^2.1.5",
     "react-scroll": "^1.8.0",
     "react-stickynode": "^3.0.3",
+    "react-syntax-highlighter": "^15.4.5",
     "styled-components": "^5.3.3",
     "theme-ui": "^0.3.1",
     "typeface-dm-sans": "^1.1.3"

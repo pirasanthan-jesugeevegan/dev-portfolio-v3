@@ -9,9 +9,86 @@ import {
   Heading,
   Grid,
 } from 'theme-ui';
-import PortableText from 'react-portable-text';
+import PortableText from '@sanity/block-content-to-react';
+
+import SyntaxHighlighter from 'react-syntax-highlighter';
+
 import Footer from './footer/footer';
 import { urlFor } from '../../sanity';
+
+const BlockRenderer = (props) => {
+  const { style = 'normal' } = props.node;
+
+  if (/^h\d/.test(style)) {
+    return (
+      <Heading
+        as={style}
+        variant="highlight"
+        style={{ position: 'relative', letterSpacing: 1, marginTop: '3.14em' }}
+        {...props}
+      />
+    );
+  }
+
+  if (style === 'normal') {
+    return (
+      <Text
+        as="p"
+        variant="primaryText"
+        // sx={props?.node?.children[0]?.marks[0] ? { color: '#ffc35b' } : ''}
+        {...props}
+      />
+    );
+  }
+  if (style === 'blockquote') {
+    return (
+      <blockquote
+        style={{
+          boxShadow: '#ffc35b 3px 0px 0px 0px inset',
+          paddingLeft: '23px',
+          marginLeft: '0px',
+          fontStyle: 'italic',
+        }}
+      >
+        {props.children}
+      </blockquote>
+    );
+  }
+
+  if (props?.node?.markDefs[0]?._type === 'link') {
+    <a href={props?.node?.markDefs[0]?.href} style={{ color: '#5757f9' }}>
+      {props?.node?.children[0]?.text}
+    </a>;
+  }
+
+  // Fall back to default handling
+  return PortableText.defaultSerializers.types.block(props);
+};
+
+const serializers = {
+  types: {
+    authorReference: ({ node }) => <span>{node.author.name}</span>,
+    code: (props) => (
+      <SyntaxHighlighter
+        language={props.node.language || 'gherkin'}
+        customStyle={{ padding: '1rem', fontSize: '14px', borderRadius: '5px' }}
+        wrapLines="false"
+      >
+        {props.node.code}
+      </SyntaxHighlighter>
+    ),
+    image: (asset) => (
+      <Image
+        src={urlFor(asset.node)}
+        sx={{
+          width: '-webkit-fill-available',
+        }}
+        alt={asset.node.asset._ref}
+      />
+    ),
+    block: BlockRenderer,
+  },
+};
 
 export default function BlogPost({ data }) {
   return (
@@ -47,85 +124,19 @@ export default function BlogPost({ data }) {
             <Text
               as="p"
               variant="primaryText"
-              sx={{ margin: '10px 0px', padding: '0px 10px 50px 10px' }}
+              sx={{ margin: '10px 0px', padding: '0px 10px 10px 10px' }}
             >
               Blog post by{' '}
               <span style={{ color: '#ffc35b' }}>{data.author.name}</span> -
-              Published at {new Date(data._createdAt).toLocaleString()}
+              Published at {new Date(data._createdAt).toLocaleDateString('uk')}
             </Text>
           </Flex>
 
           <PortableText
-            sx={{ flexDirection: 'column', width: '100%' }}
-            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
-            content={data.body}
-            serializers={{
-              h1: (props) => (
-                <Heading
-                  as="h1"
-                  variant="highlight"
-                  style={{
-                    position: 'relative',
-                  }}
-                  {...props}
-                />
-              ),
-              h4: (props) => (
-                <Heading
-                  as="h4"
-                  variant="highlight"
-                  style={{ position: 'relative' }}
-                  {...props}
-                />
-              ),
-              code: ({ children }) => (
-                <pre
-                  style={{
-                    background: '#f4f4f4',
-                    border: '1px solid #ddd',
-                    borderLeft: '3px solid #FFC35B',
-                    color: '#666',
-                    pageBreakInside: 'avoid',
-                    fontFamily: 'monospace',
-                    fontSize: '15px',
-                    lineHeight: '1.6',
-                    marginBottom: '1.6em',
-                    maxWidth: '100%',
-                    overflow: 'auto',
-                    padding: '1em 1.5em',
-                    display: 'block',
-                    wordWrap: 'break-word',
-                  }}
-                >
-                  <code>{children}</code>
-                </pre>
-              ),
-              li: ({ children }) => (
-                <li
-                  style={{
-                    padding: '5px',
-                    marginLeft: '25px',
-                  }}
-                >
-                  {children}
-                </li>
-              ),
-              link: ({ href, children }) => (
-                <a href={href} style={{ color: '#5757f9' }}>
-                  {children}
-                </a>
-              ),
-              image: ({ asset }) => (
-                <Image
-                  src={urlFor(asset)}
-                  sx={{
-                    width: '-webkit-fill-available',
-                  }}
-                  alt={asset._ref}
-                />
-              ),
-            }}
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+            blocks={data?.body}
+            serializers={serializers}
           />
         </Box>
       </Grid>

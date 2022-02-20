@@ -26,9 +26,13 @@ export default {
         { title: 'H2', value: 'h2' },
         { title: 'H3', value: 'h3' },
         { title: 'H4', value: 'h4' },
+        { title: 'Steps', value: 'step' },
         { title: 'Quote', value: 'blockquote' },
       ],
-      lists: [{ title: 'Bullet', value: 'bullet' }],
+      lists: [
+        { title: 'Bullet', value: 'bullet' },
+        { title: 'Numbered', value: 'number' },
+      ],
       // Marks let you mark up inline text in the block editor.
       marks: {
         // Decorators usually describe a single property – e.g. a typographic
@@ -62,6 +66,24 @@ export default {
     // as a block type.
     {
       type: 'image',
+    },
+    {
+      type: 'code',
+      options: {
+        theme: 'solarized_dark',
+        languageAlternatives: [
+          { title: 'Gherkin', value: 'gherkin' },
+          { title: 'Javascript', value: 'javascript' },
+          { title: 'JSON', value: 'json' },
+          { title: 'BASH', value: 'powershell' },
+          { title: 'Typescript', value: 'typescript' },
+          { title: 'Markdown', value: 'markdown' },
+          { title: 'Http', value: 'http' },
+          { title: 'Groovy', value: 'groovy' },
+          { title: 'Dockerfile', value: 'dockerfile' },
+          { title: 'Bash', value: 'bash' },
+        ],
+      },
     },
   ],
 };

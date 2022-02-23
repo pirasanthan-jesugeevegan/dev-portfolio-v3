@@ -1,6 +1,7 @@
 import { Box, Card, Flex, Image, Text, Avatar } from 'theme-ui';
 import { urlFor } from '../../sanity';
 import Link from 'next/link';
+import { Icon } from '@iconify/react';
 export default function BlogCard({ data }) {
   return (
     <Link href={`/blog/${data.slug.current}`}>
@@ -26,7 +27,14 @@ export default function BlogCard({ data }) {
               </Text>
 
               <Box
-                sx={{ padding: '15px 30px', position: 'absolute', bottom: '0' }}
+                sx={{
+                  padding: '15px 30px',
+                  position: 'absolute',
+                  bottom: '0',
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                }}
               >
                 <Flex>
                   <Avatar src={urlFor(data.author?.image)} />
@@ -37,6 +45,21 @@ export default function BlogCard({ data }) {
                     {data.author?.name}
                   </Text>
                 </Flex>
+                {/* <Flex>
+                  <Icon
+                    icon="akar-icons:clock"
+                    color="#ffc35b"
+                    style={{
+                      alignSelf: 'center',
+                    }}
+                  />
+                  <Text
+                    className="package__name"
+                    sx={{ alignSelf: 'center', paddingLeft: '10px' }}
+                  >
+                    {data?.estimatedReadingTime}
+                  </Text>
+                </Flex> */}
               </Box>
               {/* <Box>
                 <Text className="package__name"> {data.author?.name}</Text>

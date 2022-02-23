@@ -8,6 +8,8 @@ import Node from 'assets/icons/node.svg';
 import Selenium from 'assets/icons/selenium.svg';
 import Cucumber from 'assets/icons/cucumber.svg';
 import Appium from 'assets/icons/appium.svg';
+import Percy from 'assets/icons/percy.svg';
+import Applitools from 'assets/icons/applitools.svg';
 import Chai from 'assets/icons/chai.svg';
 import Cypress from 'assets/icons/cypress.svg';
 import Heroku from 'assets/icons/heroku.svg';
@@ -68,6 +70,12 @@ export default function PriceCard({ data }) {
         break;
       case 'selenium':
         newArray.push(Selenium);
+        break;
+      case 'percy':
+        newArray.push(Percy);
+        break;
+      case 'applitools':
+        newArray.push(Applitools);
         break;
       case 'browserstack':
         newArray.push(Browserstack);

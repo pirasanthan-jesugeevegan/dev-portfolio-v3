@@ -7,3 +7,5 @@ Host: http://pirasanth.com/
 
 # Sitemaps
 Sitemap: http://pirasanth.com/sitemap.xml
+Sitemap: http://pirasanth.com/blog/how-to-set-up-cucumber-with-cypress
+Sitemap: http://pirasanth.com/blog/how-to-set-up-cucumber-with-cypress2

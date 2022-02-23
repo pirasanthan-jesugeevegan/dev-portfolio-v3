@@ -21,25 +21,34 @@ export default function BlogCard({ data }) {
               <Text className="package__name" sx={styles.title}>
                 {data.title}
               </Text>
-              <Text className="package__name" sx={styles.des}>
+              <Text className="package__description" sx={styles.des}>
                 {data.description}
               </Text>
+
+              <Box
+                sx={{ padding: '15px 30px', position: 'absolute', bottom: '0' }}
+              >
+                <Flex>
+                  <Avatar src={urlFor(data.author?.image)} />
+                  <Text
+                    className="package__name"
+                    sx={{ alignSelf: 'center', paddingLeft: '10px' }}
+                  >
+                    {data.author?.name}
+                  </Text>
+                </Flex>
+              </Box>
+              {/* <Box>
+                <Text className="package__name"> {data.author?.name}</Text>
+              </Box>
+              <Box>
+                <Text className="package__name" sx={{}}>
+                  {data.author?.name}
+                </Text>
+              </Box> */}
             </Card>
           </Flex>
         </Box>
-        {/* <Flex sx={{ padding: '15px 30px', position: 'absolute', bottom: '0' }}>
-          <Box>
-            <Avatar src={urlFor(data.author?.image)} />
-          </Box>
-          <Box>
-            <Text className="package__name"> {data.author?.name}</Text>
-          </Box>
-          <Box>
-            <Text className="package__name" sx={{}}>
-              {data.author?.name}
-            </Text>
-          </Box>
-        </Flex> */}
       </Card>
     </Link>
   );
@@ -65,7 +74,7 @@ const styles = {
     textAlign: 'left',
   },
   des: {
-    padding: '15px 30px',
+    padding: '15px 30px 60px',
     textAlign: 'left',
   },
   pricingBox: {

@@ -1,9 +1,9 @@
 module.exports = {
-  siteUrl: 'http://pirasanth.com/',
+  siteUrl: 'https://pirasanth.com/',
   generateRobotsTxt: true,
   robotsTxtOptions: {
     additionalSitemaps: [
-      'http://pirasanth.com/blog/how-to-set-up-cucumber-with-cypress',
+      'https://pirasanth.com/blog/how-to-set-up-cucumber-with-cypress',
     ],
   },
 };

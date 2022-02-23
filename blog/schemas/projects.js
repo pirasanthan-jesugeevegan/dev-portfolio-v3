@@ -14,6 +14,11 @@ export default {
       type: 'number',
     },
     {
+      name: 'tag',
+      title: 'Tag',
+      type: 'string',
+    },
+    {
       name: 'display',
       title: 'Display',
       type: 'boolean',

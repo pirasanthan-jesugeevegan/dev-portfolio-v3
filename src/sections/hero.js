@@ -55,7 +55,7 @@ const styles = {
     borderRadius: '10px',
     px: '20px',
     right: 0,
-    content: '',
+    content: "''",
     width: ['inherit', 'inherit', '50vw'],
     height: '100%',
     position: 'absolute',

@@ -12,7 +12,7 @@ export default function Skills({ skills }) {
         <Grid sx={styles.grid}>
           {skills.map((item) => (
             <FeatureCard
-              key={item.id}
+              key={item.title}
               src={item.imgSrc}
               alt={item.title}
               title={item.title}

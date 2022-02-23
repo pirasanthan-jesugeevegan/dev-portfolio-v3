@@ -2,6 +2,7 @@ import { Box, Card, Flex, Image, Text } from 'theme-ui';
 import { useState } from 'react';
 
 import Modal from '../components/modal';
+import CardRibbon from './card-ribbon';
 import Reacts from 'assets/icons/react.svg';
 import Node from 'assets/icons/node.svg';
 import Selenium from 'assets/icons/selenium.svg';
@@ -84,6 +85,7 @@ export default function PriceCard({ data }) {
           });
         }}
       >
+        {data.tag && <CardRibbon data={data.tag} />}
         <Flex sx={styles.pricingHeader}>
           <Card
             sx={{
@@ -163,5 +165,45 @@ const styles = {
     alignItems: 'flex-start',
     mb: ['35px', null, null, null, null, '50px'],
     padding: '0px',
+  },
+  cardRibbon: {
+    position: 'absolute',
+    overflow: 'hidden',
+    top: '-10px',
+    left: '-10px',
+    width: '114px',
+    height: '112px',
+    span: {
+      position: 'absolute',
+      display: 'block',
+      width: '160px',
+      padding: '10px 0',
+      backgroundColor: '#ffc35b',
+      boxShadow: '0 5px 5px rgba(0,0,0,0.2)',
+      color: '#252734',
+      fontSize: '13px',
+      textTransform: 'uppercase',
+      textAlign: 'center',
+      left: '-35px',
+      top: '25px',
+      transform: 'rotate(-45deg)',
+    },
+    '&::before &::after': {
+      position: 'absolute',
+      zIndex: '-1',
+      content: "''",
+      display: 'block',
+      border: '5px solid #2980b9',
+      borderTopColor: 'transparent',
+      borderLeftColor: 'transparent',
+    },
+    '&::before': {
+      top: '0',
+      right: '0',
+    },
+    '&::after': {
+      bottom: '0',
+      left: '0',
+    },
   },
 };

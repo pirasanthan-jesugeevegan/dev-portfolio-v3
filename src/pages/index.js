@@ -25,9 +25,9 @@ export default function IndexPage({ blogs, skills, projects }) {
           <SEO />
           <Hero />
           <About />
-          <Skills skills={skills} />
-          <Portfolio projects={projects} />
-          {IsPost(blogs) && <Blog blogs={blogs} />}
+          <Skills skills={skills} key={skills.title} />
+          <Portfolio projects={projects} key={projects.title} />
+          {IsPost(blogs) && <Blog blogs={blogs} key={blogs._id} />}
         </Layout>
       </StickyProvider>
     </ThemeProvider>
@@ -61,6 +61,7 @@ description
   const projectQuery = `
 *[_type == "projects"] | order(order asc){ 
   order,
+  tag,
   card,
   icons,
   image,

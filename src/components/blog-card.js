@@ -1,4 +1,4 @@
-import { Box, Card, Flex, Image, Text, Avatar } from 'theme-ui';
+import { Box, Card, Flex, Image, Text } from 'theme-ui';
 import { urlFor } from '../../sanity';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
@@ -28,7 +28,7 @@ export default function BlogCard({ data }) {
 
               <Box
                 sx={{
-                  padding: '15px 30px',
+                  padding: '30px 30px',
                   position: 'absolute',
                   bottom: '0',
                   display: 'flex',
@@ -37,29 +37,51 @@ export default function BlogCard({ data }) {
                 }}
               >
                 <Flex>
-                  <Avatar src={urlFor(data.author?.image)} />
+                  {/* <Avatar src={urlFor(data.author?.image)} />
                   <Text
                     className="package__name"
                     sx={{ alignSelf: 'center', paddingLeft: '10px' }}
                   >
                     {data.author?.name}
-                  </Text>
+                  </Text> */}
+                  <Box sx={{ display: 'inline-flex' }}>
+                    {data?.categories?.map((item) => (
+                      <Text
+                        sx={{
+                          marginRight: '10px',
+                          padding: '2px 6px',
+                          color: '#323444',
+                          backgroundColor: '#ffc35b',
+                          borderRadius: '5px',
+                          fontWeight: '500',
+                          letterSpacing: '1px',
+                          textAlign: 'center',
+                          minWidth: '45px',
+                          boxShadow:
+                            '0 0 1px rgba(#ac1c38,.1), 0 2px 6px rgba(#ac1c38,.175)',
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                    ))}
+                  </Box>
                 </Flex>
-                {/* <Flex>
+                <Flex>
                   <Icon
-                    icon="akar-icons:clock"
+                    icon="ant-design:like-outlined"
                     color="#ffc35b"
                     style={{
                       alignSelf: 'center',
+                      fontSize: 'large',
                     }}
                   />
                   <Text
                     className="package__name"
-                    sx={{ alignSelf: 'center', paddingLeft: '10px' }}
+                    sx={{ alignSelf: 'center', paddingLeft: '5px' }}
                   >
-                    {data?.estimatedReadingTime}
+                    {data?.likes}
                   </Text>
-                </Flex> */}
+                </Flex>
               </Box>
               {/* <Box>
                 <Text className="package__name"> {data.author?.name}</Text>

@@ -38,10 +38,14 @@ export const getServerSideProps = async () => {
   const postQuery = `*[_type == "post"]{
   _id,
   title,
+  likes,
   publish,
+  categories[] -> {
+          title
+  },
   author-> {
   name,
-  image
+  image,
 },
 keyword,
 slug,

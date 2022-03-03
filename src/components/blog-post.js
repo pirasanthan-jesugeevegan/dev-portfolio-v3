@@ -1,20 +1,12 @@
-import {
-  Box,
-  Card,
-  Flex,
-  Image,
-  Text,
-  Avatar,
-  Container,
-  Heading,
-  Grid,
-} from 'theme-ui';
+import { useState, useEffect } from 'react';
+import { Box, Flex, Image, Text, Avatar, Heading, Grid } from 'theme-ui';
 import PortableText from '@sanity/block-content-to-react';
-
+import { Icon } from '@iconify/react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-
 import Footer from './footer/footer';
 import { urlFor } from '../../sanity';
+import { useCookies } from 'react-cookie';
+import { Link } from './link';
 
 const BlockRenderer = (props) => {
   const { style = 'normal' } = props.node;
@@ -29,7 +21,6 @@ const BlockRenderer = (props) => {
       />
     );
   }
-
   if (style === 'normal') {
     return (
       <Text
@@ -54,17 +45,14 @@ const BlockRenderer = (props) => {
       </blockquote>
     );
   }
-
   if (props?.node?.markDefs[0]?._type === 'link') {
     <a href={props?.node?.markDefs[0]?.href} style={{ color: '#5757f9' }}>
       {props?.node?.children[0]?.text}
     </a>;
   }
-
   // Fall back to default handling
   return PortableText.defaultSerializers.types.block(props);
 };
-
 const serializers = {
   types: {
     authorReference: ({ node }) => <span>{node.author.name}</span>,
@@ -91,20 +79,79 @@ const serializers = {
 };
 
 export default function BlogPost({ data }) {
+  const [count, setCount] = useState(data.likes);
+  const [cookies, setCookie] = useCookies(['access_token']);
+  const onBtnClick = () => {
+    if (cookies.access_token === 'false') {
+      setCookie('access_token', true, {
+        path: '/',
+      });
+      setCount(count + 1);
+    } else {
+      setCookie('access_token', false, {
+        path: '/',
+      });
+      setCount(count - 1);
+    }
+  };
+  useEffect(() => {
+    const mutations = [
+      {
+        patch: {
+          query: `*[_id == '${data._id}']`,
+          set: {
+            likes: count,
+          },
+        },
+      },
+    ];
+
+    fetch(
+      `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+      {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_API_TOKEN}`,
+        },
+        body: JSON.stringify({ mutations }),
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  }, [count]);
+
   return (
     <section id={data._id}>
       <Grid>
-        <Image
-          src={urlFor(data.mainImage)}
-          sx={{
-            width: '-webkit-fill-available',
-            paddingTop: '100px',
-            minWidth: '-1px',
-            paddingBottom: '5%',
-          }}
-          alt={data.title}
-        />
         <Box sx={styles.box}>
+          <Image
+            src={urlFor(data.mainImage)}
+            sx={{
+              width: '-webkit-fill-available',
+              paddingTop: '100px',
+              minWidth: '-1px',
+              paddingBottom: '5%',
+            }}
+            alt={data.title}
+          />
+          <Box sx={{ color: '#ffc35b' }}>
+            <Link
+              path="/"
+              sx={{
+                color: '#ffc35b',
+                borderBottom: '1px dotted #ffc35b',
+                textDecoration: 'none',
+              }}
+            >
+              <Icon
+                icon="bxs:left-arrow-circle"
+                style={{ fontSize: 'inherit', marginRight: '5px' }}
+              />
+              <span style={{ fontSize: '1.2rem' }}>Back to Home page</span>
+            </Link>
+          </Box>
           <Heading
             as="h1"
             variant="highlight"
@@ -112,6 +159,27 @@ export default function BlogPost({ data }) {
           >
             {data.title}
           </Heading>
+          <Box sx={{ display: 'inline-flex' }}>
+            {data?.categories?.map((item) => (
+              <Text
+                sx={{
+                  marginRight: '10px',
+                  padding: '2px 6px',
+                  color: '#323444',
+                  backgroundColor: '#ffc35b',
+                  borderRadius: '5px',
+                  fontWeight: '500',
+                  letterSpacing: '1px',
+                  textAlign: 'center',
+                  minWidth: '45px',
+                  boxShadow:
+                    '0 0 1px rgba(#ac1c38,.1), 0 2px 6px rgba(#ac1c38,.175)',
+                }}
+              >
+                {item.title}
+              </Text>
+            ))}
+          </Box>
           <Text as="p" variant="primaryText" sx={{ color: 'grey' }}>
             {data.description}
           </Text>
@@ -138,6 +206,14 @@ export default function BlogPost({ data }) {
             blocks={data?.body}
             serializers={serializers}
           />
+          <Box sx={{ fontSize: 'x-large' }}>
+            <Icon
+              icon="ant-design:like-outlined"
+              color={cookies.access_token === 'true' ? '#ffc35b' : null}
+              onClick={onBtnClick}
+            />{' '}
+            {count}
+          </Box>
         </Box>
       </Grid>
       <Footer />

@@ -170,10 +170,14 @@ export const getServerSideProps = async (pageContext) => {
         _id,
         _createdAt,
         title,
+        likes,
         author-> {
             name,
             image
         },
+        categories[] -> {
+          title
+  },
         description,
         mainImage,
         slug,

@@ -2,6 +2,9 @@ export default {
   name: 'post',
   title: 'Post',
   type: 'document',
+  initialValue: {
+    likes: 0,
+  },
   fields: [
     {
       name: 'title',
@@ -17,6 +20,11 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'string',
+    },
+    {
+      name: 'likes',
+      type: 'number',
+      title: 'Number of Likes',
     },
     {
       name: 'keyword',

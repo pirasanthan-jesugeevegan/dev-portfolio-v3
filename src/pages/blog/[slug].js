@@ -13,7 +13,6 @@ import { Icon } from '@iconify/react';
 import BlogPost from '../../components/blog-post';
 import Head from 'next/head';
 export default function Post({ post }) {
-  console.log(post);
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>

@@ -81,8 +81,14 @@ const serializers = {
 export default function BlogPost({ data }) {
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
+  console.log(cookies.access_token);
   const onBtnClick = () => {
-    if (cookies.access_token === 'false') {
+    if (cookies.access_token === undefined) {
+      setCookie('access_token', true, {
+        path: '/',
+      });
+      setCount(count + 1);
+    } else if (cookies.access_token === 'false') {
       setCookie('access_token', true, {
         path: '/',
       });

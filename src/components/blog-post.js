@@ -172,8 +172,7 @@ export default function BlogPost({ data }) {
                   letterSpacing: '1px',
                   textAlign: 'center',
                   minWidth: '45px',
-                  boxShadow:
-                    '0 0 1px rgba(#ac1c38,.1), 0 2px 6px rgba(#ac1c38,.175)',
+                  boxShadow: '4px 3px 14px 0px hsl(0deg 0% 13%)',
                 }}
               >
                 {item.title}

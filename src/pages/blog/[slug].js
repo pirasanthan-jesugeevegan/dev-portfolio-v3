@@ -13,15 +13,22 @@ import { Icon } from '@iconify/react';
 import BlogPost from '../../components/blog-post';
 import Head from 'next/head';
 export default function Post({ post }) {
+  console.log(post);
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>
         <Head>
           {/* Primary Meta Tags */}
-          <title>Blog | {post.title}</title>
+          <title>{post.title}</title>
           <meta name="title" content={post.title}></meta>
           <meta name="description" content={post.description}></meta>
           <meta name="keywords" content={post.keyword}></meta>
+          <meta name="image" content={urlFor(post.mainImage)}></meta>
+
+          {/* Google / Search Engine Tags  */}
+          <meta itemprop="name" content={post.title}></meta>
+          <meta itemprop="description" content={post.description}></meta>
+          <meta itemprop="image" content={urlFor(post.mainImage)}></meta>
 
           {/* Open Graph / Facebook  */}
           <meta property="og:type" content="website"></meta>
@@ -31,7 +38,7 @@ export default function Post({ post }) {
           ></meta>
           <meta property="og:title" content={post.title}></meta>
           <meta property="og:description" content={post.description}></meta>
-          <meta property="og:image" content=""></meta>
+          <meta property="og:image" content={urlFor(post.mainImage)}></meta>
 
           {/* Twitter */}
           <meta property="twitter:card" content="summary_large_image"></meta>
@@ -44,7 +51,10 @@ export default function Post({ post }) {
             property="twitter:description"
             content={post.description}
           ></meta>
-          <meta property="twitter:image" content=""></meta>
+          <meta
+            property="twitter:image"
+            content={urlFor(post.mainImage)}
+          ></meta>
         </Head>
         <header sx={styles.header} id="header">
           <Container sx={styles.container}>

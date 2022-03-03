@@ -1,7 +1,7 @@
 # dependencies
 /node_modules
 blog/node_modules
-
+package-lock.json
 # next.js
 /.next/
 out/

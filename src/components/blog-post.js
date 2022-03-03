@@ -81,7 +81,7 @@ const serializers = {
 export default function BlogPost({ data }) {
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
-  console.log(cookies.access_token);
+
   const onBtnClick = () => {
     if (cookies.access_token === undefined) {
       setCookie('access_token', true, {
@@ -101,32 +101,34 @@ export default function BlogPost({ data }) {
     }
   };
   useEffect(() => {
-    const mutations = [
-      {
-        patch: {
-          query: `*[_id == '${data._id}']`,
-          set: {
-            likes: count,
+    if (cookies.access_token) {
+      const mutations = [
+        {
+          patch: {
+            query: `*[_id == '${data._id}']`,
+            set: {
+              likes: count,
+            },
           },
         },
-      },
-    ];
+      ];
 
-    fetch(
-      `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
-      {
-        method: 'post',
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_API_TOKEN}`,
-        },
-        body: JSON.stringify({ mutations }),
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
-  }, [count]);
+      fetch(
+        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+        {
+          method: 'post',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_API_TOKEN}`,
+          },
+          body: JSON.stringify({ mutations }),
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    }
+  }, [cookies.access_token, count]);
 
   return (
     <section id={data._id}>

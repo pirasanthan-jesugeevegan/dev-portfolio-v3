@@ -55,7 +55,7 @@ export default function About() {
                 variant="secondary"
                 aria-label="Download CV"
               >
-                <Icon icon="feather:download" />
+                <Icon icon="feather:download" style={{ marginRight: '10px' }} />
                 Download CV (PDF)
               </Button>
             </Flex>

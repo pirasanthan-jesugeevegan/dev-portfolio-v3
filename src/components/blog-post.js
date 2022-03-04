@@ -232,7 +232,14 @@ export default function BlogPost({ data }) {
                 blocks={data?.body}
                 serializers={serializers}
               />
-              <Box sx={{ fontSize: 'x-large' }}>
+              <Box
+                sx={{
+                  fontSize: 'x-large',
+                  '&:hover': {
+                    color: '#ffc35b',
+                  },
+                }}
+              >
                 <Icon
                   icon="ant-design:like-outlined"
                   color={cookies.access_token === 'true' ? '#ffc35b' : null}

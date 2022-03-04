@@ -89,7 +89,7 @@ export default function Post({ post }) {
           </Container>
         </header>
         <main>
-          <BlogPost data={post} />
+          <BlogPost data={post} key={post._id} />
         </main>
       </DrawerProvider>
     </ThemeProvider>

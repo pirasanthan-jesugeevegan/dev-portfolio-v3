@@ -117,7 +117,7 @@ export default {
       fontWeight: 'normal',
       fontFamily: 'Arial',
       fontSize: '20px',
-      margin: '24px 0px',
+      margin: '10px 0px',
       //line-height: '32px'
     },
     heroPrimary: {

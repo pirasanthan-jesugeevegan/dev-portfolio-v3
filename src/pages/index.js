@@ -12,6 +12,19 @@ import Portfolio from 'sections/portfolio';
 import Blog from 'sections/blog';
 
 export default function IndexPage({ blogs, skills, projects }) {
+  // console.log(blogs);
+  // var now = new Date(
+  //   new Date().toString().split('GMT')[0] + ' UTC'
+  // ).toISOString();
+  // console.log(
+  //   new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
+  // );
+
+  // if (blogs[1].publishedAt > now) {
+  //   console.log('Selected date is in the past');
+  // } else {
+  //   console.log('Selected date is NOT in the past');
+  // }
   const IsPost = (blogs) => {
     for (const element of blogs) {
       if (element.publish === true) return true;
@@ -40,6 +53,7 @@ export const getServerSideProps = async () => {
   title,
   likes,
   publish,
+  publishedAt,
   categories[] -> {
           title
   },

@@ -24,6 +24,7 @@ import Docker from 'assets/icons/docker.svg';
 import Grafana from 'assets/icons/grafana.svg';
 import Npm from 'assets/icons/npm.svg';
 import Influxdb from 'assets/icons/influxdb.svg';
+import Jenkins from 'assets/icons/jenkins.svg';
 import K6 from 'assets/icons/k6.svg';
 import { urlFor } from '../../sanity';
 import { logEvent } from '../analytics/index';
@@ -99,6 +100,9 @@ export default function PriceCard({ data }) {
         break;
       case 'k6':
         newArray.push(K6);
+        break;
+        case 'jenkins':
+          newArray.push(Jenkins);
     }
   });
   return (

@@ -350,7 +350,7 @@ export default function BlogPost({ data }) {
               display: ['none', 'none', 'block'],
             }}
           >
-            {/* <Box sx={styles.content}>
+            <Box sx={styles.content}>
               {data.body.map((item, i) => {
                 if (item.style === 'h4') {
                   return (
@@ -394,7 +394,7 @@ export default function BlogPost({ data }) {
                   );
                 }
               })}
-            </Box> */}
+            </Box>
           </Box>
         </Flex>
       </Grid>

@@ -115,7 +115,6 @@ export default {
       fontFamily: 'Montserrat',
       lineHeight: '1.6',
       fontWeight: 'normal',
-      fontFamily: 'Arial',
       fontSize: '20px',
       margin: '10px 0px',
       //line-height: '32px'

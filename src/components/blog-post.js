@@ -26,7 +26,7 @@ const BlockRenderer = (props) => {
         style={{
           position: 'relative',
           letterSpacing: 1,
-          marginTop: '3.14em',
+          marginTop: '1.14em',
         }}
         {...props}
       />
@@ -37,7 +37,7 @@ const BlockRenderer = (props) => {
       <Text
         as="p"
         variant="primaryText"
-        // sx={props?.node?.children[0]?.marks[0] ? { color: '#ffc35b' } : ''}
+        sx={{ margin: '20px 0px' }}
         {...props}
       />
     );
@@ -109,7 +109,19 @@ const serializers = {
     strong: ({ children }) => (
       <strong style={{ color: '#ffc35b' }}>{children}</strong>
     ),
-    code: ({ children }) => <code>{children}</code>,
+    code: ({ children }) => (
+      <code
+        style={{
+          padding: '0.2em 0.4em',
+          margin: '0',
+          fontSize: '85%',
+          backgroundColor: 'rgb(87 88 100)',
+          borderRadius: '6px',
+        }}
+      >
+        {children}
+      </code>
+    ),
     link: ({ mark, children }) => (
       console.log(mark),
       (
@@ -338,7 +350,7 @@ export default function BlogPost({ data }) {
               display: ['none', 'none', 'block'],
             }}
           >
-            <Box sx={styles.content}>
+            {/* <Box sx={styles.content}>
               {data.body.map((item, i) => {
                 if (item.style === 'h4') {
                   return (
@@ -382,7 +394,7 @@ export default function BlogPost({ data }) {
                   );
                 }
               })}
-            </Box>
+            </Box> */}
           </Box>
         </Flex>
       </Grid>

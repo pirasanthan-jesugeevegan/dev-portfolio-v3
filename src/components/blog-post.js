@@ -251,7 +251,7 @@ export default function BlogPost({ data }) {
             <Box>
               <Box sx={{ color: '#ffc35b' }}>
                 <Links
-                  path="/"
+                  path="/blog"
                   sx={{
                     color: '#ffc35b',
                     borderBottom: '1px dotted #ffc35b',
@@ -262,7 +262,7 @@ export default function BlogPost({ data }) {
                     icon="bxs:left-arrow-circle"
                     style={{ fontSize: 'inherit', marginRight: '5px' }}
                   />
-                  <span style={{ fontSize: '1.2rem' }}>Back to Home page</span>
+                  <span style={{ fontSize: '1.2rem' }}>Back to Blog page</span>
                 </Links>
               </Box>
               <Heading

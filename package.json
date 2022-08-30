@@ -8,6 +8,11 @@
     "export": "next export",
     "postbuild": "next-sitemap"
   },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@mattjennings/react-modal": "^1.0.3",
     "@sanity/block-content-to-react": "^3.0.0",
@@ -16,7 +21,7 @@
     "framer-motion": "^2.7.5",
     "globby": "^11.0.0",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "10.2.3",
+    "next": "^10.2.3",
     "next-compose-plugins": "^2.2.0",
     "next-optimized-images": "^2.5.4",
     "next-sanity": "^0.4.0",

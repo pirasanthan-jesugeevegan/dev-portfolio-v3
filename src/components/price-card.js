@@ -20,6 +20,12 @@ import Browserstack from 'assets/icons/browserstack.svg';
 import Netlify from 'assets/icons/netifly.svg';
 import Sass from 'assets/icons/sass.svg';
 import Javascript from 'assets/icons/javascript.svg';
+import Docker from 'assets/icons/docker.svg';
+import Grafana from 'assets/icons/grafana.svg';
+import Npm from 'assets/icons/npm.svg';
+import Influxdb from 'assets/icons/influxdb.svg';
+import Jenkins from 'assets/icons/jenkins.svg';
+import K6 from 'assets/icons/k6.svg';
 import { urlFor } from '../../sanity';
 import { logEvent } from '../analytics/index';
 
@@ -79,6 +85,24 @@ export default function PriceCard({ data }) {
         break;
       case 'browserstack':
         newArray.push(Browserstack);
+        break;
+      case 'docker':
+        newArray.push(Docker);
+        break;
+      case 'grafana':
+        newArray.push(Grafana);
+        break;
+      case 'npm':
+        newArray.push(Npm);
+        break;
+      case 'influxdb':
+        newArray.push(Influxdb);
+        break;
+      case 'k6':
+        newArray.push(K6);
+        break;
+        case 'jenkins':
+          newArray.push(Jenkins);
     }
   });
   return (

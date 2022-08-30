@@ -24,11 +24,11 @@ const styles = {
       backgroundColor: '#ffc35b',
       boxShadow: '0 5px 5px rgba(0,0,0,0.2)',
       color: '#252734',
-      fontSize: '13px',
+      fontSize: '12px',
       textTransform: 'uppercase',
       textAlign: 'center',
       left: '-48px',
-      top: '40px',
+      top: '42px',
       transform: 'rotate(-45deg)',
     },
     '&::before, &::after': {

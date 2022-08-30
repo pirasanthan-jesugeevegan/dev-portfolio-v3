@@ -23,7 +23,11 @@ const BlockRenderer = (props) => {
             : ''
         }
         variant="highlight"
-        style={{ position: 'relative', letterSpacing: 1, marginTop: '3.14em' }}
+        style={{
+          position: 'relative',
+          letterSpacing: 1,
+          marginTop: '1.14em',
+        }}
         {...props}
       />
     );
@@ -33,7 +37,7 @@ const BlockRenderer = (props) => {
       <Text
         as="p"
         variant="primaryText"
-        // sx={props?.node?.children[0]?.marks[0] ? { color: '#ffc35b' } : ''}
+        sx={{ margin: '20px 0px' }}
         {...props}
       />
     );
@@ -52,11 +56,11 @@ const BlockRenderer = (props) => {
       </blockquote>
     );
   }
-  if (props?.node?.markDefs[0]?._type === 'link') {
-    <a href={props?.node?.markDefs[0]?.href} style={{ color: '#5757f9' }}>
-      {props?.node?.children[0]?.text}
-    </a>;
-  }
+  // if (props?.node?.markDefs[0]?._type === 'link') {
+  //   <a href={props?.node?.markDefs[0]?.href} style={{ color: '#5757f9' }}>
+  //     {props?.node?.children[0]?.text}
+  //   </a>;
+  // }
   // Fall back to default handling
   return PortableText.defaultSerializers.types.block(props);
 };
@@ -72,16 +76,86 @@ const serializers = {
         {props.node.code}
       </SyntaxHighlighter>
     ),
+
     image: (asset) => (
       <Image
         src={urlFor(asset.node)}
         sx={{
           width: '-webkit-fill-available',
         }}
-        alt={asset.node.asset._ref}
+        alt={asset?.node?.asset?._ref}
       />
     ),
     block: BlockRenderer,
+  },
+  list: (props) =>
+    console.log('list', props) ||
+    (props.type === 'bullet' ? (
+      <ul style={{ paddingBottom: '10px' }}>{props.children}</ul>
+    ) : (
+      <ol style={{ paddingBottom: '10px' }}>{props.children}</ol>
+    )),
+  listItem: (props) =>
+    console.log('list', props) ||
+    (props.type === 'bullet' ? (
+      <li style={{ paddingBottom: '10px' }}>{props.children}</li>
+    ) : (
+      <li style={{ paddingBottom: '10px', fontSize: '16px' }}>
+        {props.children}
+      </li>
+    )),
+  marks: {
+    em: ({ children }) => <em style={{ color: 'blue' }}>{children}</em>,
+    strong: ({ children }) => (
+      <strong style={{ color: '#ffc35b' }}>{children}</strong>
+    ),
+    code: ({ children }) => (
+      <code
+        style={{
+          padding: '0.2em 0.4em',
+          margin: '0',
+          fontSize: '85%',
+          backgroundColor: 'rgb(87 88 100)',
+          borderRadius: '6px',
+        }}
+      >
+        {children}
+      </code>
+    ),
+    link: ({ mark, children }) => (
+      console.log(mark),
+      (
+        <a
+          href={mark?.href}
+          style={{ color: '#ffc35b', textDecoration: 'none' }}
+        >
+          {children}
+        </a>
+      )
+    ),
+    li: ({ children }) => (
+      <li
+        style={{
+          padding: '5px',
+          marginLeft: '25px',
+        }}
+      >
+        {children}
+      </li>
+    ),
+    footnote: ({ children, markKey, mark }) => (
+      <span>
+        {children}
+        <sup>
+          {/* 
+             If you want numbers here, you can reuse the reduce function from Footnotes.js
+             to e.g. an object with markKey as keys and the index as values.
+             {[markKey]: index}. 
+          */}
+          <a href={`#${markKey}`}>#</a>
+        </sup>
+      </span>
+    ),
   },
 };
 
@@ -140,16 +214,29 @@ export default function BlogPost({ data }) {
   return (
     <section id={data._id}>
       <Grid>
-        <Image
-          src={urlFor(data.mainImage)}
-          sx={{
-            width: '-webkit-fill-available',
-            paddingTop: '100px',
-            minWidth: '-1px',
-            px: [5, 5, 5, 5, 11, '25%'],
-          }}
-          alt={data.title}
-        />
+        {data.mainImage && data.mainImage ? (
+          <Image
+            src={urlFor(data.mainImage)}
+            sx={{
+              width: '-webkit-fill-available',
+              paddingTop: '100px',
+              minWidth: '-1px',
+              px: [5, 5, 5, 5, 11, '25%'],
+            }}
+            alt={data.title}
+          />
+        ) : (
+          <Image
+            src="https://t4.ftcdn.net/jpg/04/73/76/11/360_F_473761115_7xCb8mFgbU4O6jG28bjVCSusuSw2RK44.jpg"
+            sx={{
+              width: '-webkit-fill-available',
+              paddingTop: '100px',
+              minWidth: '-1px',
+              px: [5, 5, 5, 5, 11, '25%'],
+            }}
+          />
+        )}
+
         <Flex sx={{ px: [5, 5, 5, 5, 0, 0] }}>
           <Box
             p={2}
@@ -164,7 +251,7 @@ export default function BlogPost({ data }) {
             <Box>
               <Box sx={{ color: '#ffc35b' }}>
                 <Links
-                  path="/"
+                  path="/blog"
                   sx={{
                     color: '#ffc35b',
                     borderBottom: '1px dotted #ffc35b',
@@ -175,7 +262,7 @@ export default function BlogPost({ data }) {
                     icon="bxs:left-arrow-circle"
                     style={{ fontSize: 'inherit', marginRight: '5px' }}
                   />
-                  <span style={{ fontSize: '1.2rem' }}>Back to Home page</span>
+                  <span style={{ fontSize: '1.2rem' }}>Back to Blog page</span>
                 </Links>
               </Box>
               <Heading
@@ -221,8 +308,13 @@ export default function BlogPost({ data }) {
                 >
                   Blog post by{' '}
                   <span style={{ color: '#ffc35b' }}>{data.author.name}</span> -
-                  Published at{' '}
-                  {new Date(data._createdAt).toLocaleDateString('uk')}
+                  Published on{' '}
+                  {new Date(data._createdAt).toLocaleDateString('en', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
                 </Text>
               </Flex>
 
@@ -350,5 +442,12 @@ const styles = {
         borderLeftColor: 'secondary',
       },
     },
+  },
+  strong: {
+    boxShadow: 'inset 0 -0.2em white, inset 0 -0.25em blue',
+    display: 'inline',
+    position: 'relative',
+    paddingBottom: '10px',
+    textDecoration: 'none',
   },
 };

@@ -1,13 +1,30 @@
 /** @jsx jsx */
-import { jsx, Container, Grid, Image } from 'theme-ui';
+import { jsx, Container, Grid, Image, Link } from 'theme-ui';
 import BlogCard from 'components/blog-card';
 import Title from 'assets/Blog.png';
 import { logEvent } from '../analytics/index';
+
 export default function Blog({ blogs }) {
+  const random = blogs.sort(() => (Math.random() > 0.5 ? 1 : -1));
+  blogs = random.slice(0, 3);
+
   return (
     <section id="blog" sx={styles.pricing}>
       <Container>
-        <Image src={Title} sx={styles.header} alt="blog" />
+        <Grid>
+          <Image src={Title} sx={styles.header} alt="blog" />
+          <Link
+            href="/blog"
+            sx={{
+              position: 'absolute',
+              justifySelf: 'right',
+              padding: '30px',
+              color: '#ffc35b',
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>See full list of blogs</span>
+          </Link>
+        </Grid>
         <Grid sx={styles.grid}>
           {blogs.map(
             (post) =>

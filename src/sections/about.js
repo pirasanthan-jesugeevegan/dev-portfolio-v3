@@ -50,7 +50,7 @@ export default function About() {
                     label: 'click_cv',
                   });
                   window.location.href =
-                    'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=3cf94649-9405-4f32-88e3-0a8faf71826f';
+                    'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=ced4b7e0-f7a0-4d42-8b30-17e7dbc74a06';
                 }}
                 variant="secondary"
                 aria-label="Download CV"

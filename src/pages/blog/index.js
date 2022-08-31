@@ -69,7 +69,7 @@ export default function Blog({
               onClick={(e) => {
                 e.preventDefault();
                 window.location.href =
-                  'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=3cf94649-9405-4f32-88e3-0a8faf71826f';
+                  'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
               }}
               className="donate__btn"
               variant="secondary"

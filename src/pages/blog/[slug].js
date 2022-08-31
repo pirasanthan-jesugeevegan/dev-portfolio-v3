@@ -75,7 +75,7 @@ export default function Post({ post }) {
               onClick={(e) => {
                 e.preventDefault();
                 window.location.href =
-                  'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV%20(1).pdf?alt=media&token=ced4b7e0-f7a0-4d42-8b30-17e7dbc74a06';
+                  'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
               }}
               className="donate__btn"
               variant="secondary"

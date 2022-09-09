@@ -12,7 +12,18 @@ import { sanityClient, urlFor } from '../../../sanity';
 import { Icon } from '@iconify/react';
 import BlogPost from '../../components/blog-post';
 import Head from 'next/head';
+import readingTime from 'reading-time';
+
 export default function Post({ post }) {
+  let str;
+  for (let i = 0; i < post.body.length; i++) {
+    if (post?.body[i].style) {
+      str += post?.body[i].children[0].text;
+    } else {
+      str += post?.body[i].code;
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>
@@ -89,7 +100,7 @@ export default function Post({ post }) {
           </Container>
         </header>
         <main>
-          <BlogPost data={post} key={post._id} />
+          <BlogPost data={post} read={readingTime(str)} key={post._id} />
         </main>
       </DrawerProvider>
     </ThemeProvider>

@@ -4,10 +4,12 @@ import PortableText from '@sanity/block-content-to-react';
 import { Icon } from '@iconify/react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import Footer from './footer/footer';
+import ShareLogo from './share-social';
 import { urlFor } from '../../sanity';
 import { useCookies } from 'react-cookie';
 import { Link as Links } from './link';
 import { Link } from 'react-scroll';
+
 const BlockRenderer = (props) => {
   const { style = 'normal' } = props.node;
 
@@ -96,14 +98,14 @@ const serializers = {
       <ol style={{ paddingBottom: '10px' }}>{props.children}</ol>
     )),
   listItem: (props) =>
-    console.log('list', props) ||
-    (props.type === 'bullet' ? (
+    // console.log('list', props) ||
+    props.type === 'bullet' ? (
       <li style={{ paddingBottom: '10px' }}>{props.children}</li>
     ) : (
       <li style={{ paddingBottom: '10px', fontSize: '16px' }}>
         {props.children}
       </li>
-    )),
+    ),
   marks: {
     em: ({ children }) => <em style={{ color: 'blue' }}>{children}</em>,
     strong: ({ children }) => (
@@ -123,15 +125,10 @@ const serializers = {
       </code>
     ),
     link: ({ mark, children }) => (
-      console.log(mark),
-      (
-        <a
-          href={mark?.href}
-          style={{ color: '#ffc35b', textDecoration: 'none' }}
-        >
-          {children}
-        </a>
-      )
+      // console.log(mark),
+      <a href={mark?.href} style={{ color: '#ffc35b', textDecoration: 'none' }}>
+        {children}
+      </a>
     ),
     li: ({ children }) => (
       <li
@@ -159,7 +156,8 @@ const serializers = {
   },
 };
 
-export default function BlogPost({ data }) {
+export default function BlogPost({ data, read }) {
+  console.log(data);
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
 
@@ -307,14 +305,13 @@ export default function BlogPost({ data }) {
                   sx={{ margin: '10px 0px', padding: '0px 10px 10px 10px' }}
                 >
                   Blog post by{' '}
-                  <span style={{ color: '#ffc35b' }}>{data.author.name}</span> -
-                  Published on{' '}
+                  <span style={{ color: '#ffc35b' }}>{data.author.name}</span> •{' '}
                   {new Date(data._createdAt).toLocaleDateString('en', {
-                    weekday: 'long',
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric',
-                  })}
+                  })}{' '}
+                  • <span style={{ color: '#ffc35b' }}>{read.text}</span>
                 </Text>
               </Flex>
 
@@ -324,8 +321,14 @@ export default function BlogPost({ data }) {
                 blocks={data?.body}
                 serializers={serializers}
               />
+            </Box>
+            <Flex>
               <Box
+                p={2}
+                bg="primary"
+                color="white"
                 sx={{
+                  flex: '1 1 auto',
                   fontSize: 'x-large',
                   '&:hover': {
                     color: '#ffc35b',
@@ -339,8 +342,12 @@ export default function BlogPost({ data }) {
                 />{' '}
                 {count}
               </Box>
-            </Box>
+              <Box sx={{ display: 'flex' }} p={2} bg="muted">
+                <ShareLogo data={data} />
+              </Box>
+            </Flex>
           </Box>
+
           <Box
             p={2}
             bg="muted"
@@ -350,50 +357,43 @@ export default function BlogPost({ data }) {
               display: ['none', 'none', 'block'],
             }}
           >
-            <Box sx={styles.content}>
+            <Box sx={{ position: 'sticky', top: '30px' }}>
               {data.body.map((item, i) => {
                 if (item.style === 'h4') {
                   return (
-                    // <a
-                    //   href={`#${item.children[0].text
-                    //     .replace(/([a-z])([A-Z])/g, '$1-$2')
-                    //     .replace(/\s+/g, '-')
-                    //     .toLowerCase()}`}
-                    //   className="post_tab-link active"
-                    //   style={{
-                    //     color: 'white',
-                    //     textDecoration: 'none',
-                    //     display: 'block',
-                    //     fontSize: '1.1em',
-                    //     padding: '5px 0 5px 5px',
-                    //     lineHeight: '1.2',
-                    //     position: 'relative',
-                    //   }}
-                    // >
-                    //   {item.children[0].text}
-                    // </a>
-
-                    <Link
-                      activeClass="active"
-                      to={item.children[0].text
-                        .replace(/([a-z])([A-Z])/g, '$1-$2')
-                        .replace(/\s+/g, '-')
-                        .toLowerCase()}
-                      href={`#${item.children[0].text
-                        .replace(/([a-z])([A-Z])/g, '$1-$2')
-                        .replace(/\s+/g, '-')
-                        .toLowerCase()}`}
-                      spy={true}
-                      smooth={true}
-                      offset={-70}
-                      duration={500}
-                      key={i}
-                    >
-                      {item?.children[0]?.text}
-                    </Link>
+                    <Box sx={styles.content}>
+                      <Link
+                        activeClass="active"
+                        to={item.children[0].text
+                          .replace(/([a-z])([A-Z])/g, '$1-$2')
+                          .replace(/\s+/g, '-')
+                          .toLowerCase()}
+                        href={`#${item.children[0].text
+                          .replace(/([a-z])([A-Z])/g, '$1-$2')
+                          .replace(/\s+/g, '-')
+                          .toLowerCase()}`}
+                        spy={true}
+                        smooth={true}
+                        offset={-70}
+                        duration={500}
+                        key={i}
+                      >
+                        {item?.children[0]?.text}
+                      </Link>
+                    </Box>
                   );
                 }
               })}
+              {/* <Box
+                sx={{
+                  margin: '10px',
+                  backgroundColor: '#252734',
+                  borderRadius: '5px',
+                  padding: '10px',
+                }}
+              >
+                Hello
+              </Box> */}
             </Box>
           </Box>
         </Flex>
@@ -422,11 +422,10 @@ const styles = {
     },
   },
   content: {
-    position: 'sticky',
-    top: '30px',
     borderLeft: '4px solid #f9f9f9',
     paddingLeft: '10px',
     marginLeft: '10px',
+
     a: {
       scrollBehavior: 'smooth',
       color: 'white',

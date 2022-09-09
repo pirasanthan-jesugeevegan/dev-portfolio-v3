@@ -1,11 +1,16 @@
-import { Box, Card, Flex, Image, Text } from 'theme-ui';
+import { Box, Card, Flex, Image, Text, Avatar } from 'theme-ui';
 import { urlFor } from '../../sanity';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
+
 export default function BlogCard({ data }) {
+  if (data.description.length > 55) {
+    data.description = data.description.substring(0, 100) + '...';
+  }
+
   return (
     <Link href={`/blog/${data.slug.current}`}>
-      <Card sx={styles.pricingBox}>
+      <Card sx={styles.pricingBox} key={data._id}>
         <Box>
           <Flex sx={styles.pricingHeader}>
             <Card
@@ -19,6 +24,26 @@ export default function BlogCard({ data }) {
                 sx={styles.image}
                 alt={data.title}
               />
+              <Box sx={{ display: 'inline-flex', padding: '15px 30px' }}>
+                {data?.categories?.map((item) => (
+                  <Text
+                    sx={{
+                      marginRight: '10px',
+                      padding: '2px 6px',
+                      color: '#323444',
+                      backgroundColor: '#ffc35b',
+                      borderRadius: '5px',
+                      fontWeight: '500',
+                      letterSpacing: '1px',
+                      textAlign: 'center',
+                      minWidth: '45px',
+                      boxShadow: '4px 6px 5px 1px hsl(0deg 0% 13%)',
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                ))}
+              </Box>
               <Text className="package__name" sx={styles.title}>
                 {data.title}
               </Text>
@@ -36,33 +61,33 @@ export default function BlogCard({ data }) {
                   justifyContent: 'space-between',
                 }}
               >
-                <Flex>
-                  {/* <Avatar src={urlFor(data.author?.image)} />
-                  <Text
-                    className="package__name"
-                    sx={{ alignSelf: 'center', paddingLeft: '10px' }}
-                  >
-                    {data.author?.name}
-                  </Text> */}
-                  <Box sx={{ display: 'inline-flex' }}>
-                    {data?.categories?.map((item) => (
-                      <Text
-                        sx={{
-                          marginRight: '10px',
-                          padding: '2px 6px',
-                          color: '#323444',
-                          backgroundColor: '#ffc35b',
-                          borderRadius: '5px',
-                          fontWeight: '500',
-                          letterSpacing: '1px',
-                          textAlign: 'center',
-                          minWidth: '45px',
-                          boxShadow: '4px 6px 5px 1px hsl(0deg 0% 13%)',
-                        }}
-                      >
-                        {item.title}
-                      </Text>
-                    ))}
+                <Avatar src={urlFor(data.author?.image)} />
+                <Flex sx={{ flexDirection: 'column', marginRight: 'auto' }}>
+                  <Box>
+                    <Text
+                      className="package__name"
+                      sx={{ alignSelf: 'center', paddingLeft: '10px' }}
+                    >
+                      {data.author?.name}
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Text
+                      className="package__name"
+                      sx={{
+                        alignSelf: 'center',
+                        paddingLeft: '10px',
+                        fontSize: 'small',
+                      }}
+                    >
+                      {new Date(
+                        data._createdAt || data.publishedAt
+                      ).toLocaleDateString('en', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      })}{' '}
+                    </Text>
                   </Box>
                 </Flex>
                 <Flex>
@@ -82,14 +107,6 @@ export default function BlogCard({ data }) {
                   </Text>
                 </Flex>
               </Box>
-              {/* <Box>
-                <Text className="package__name"> {data.author?.name}</Text>
-              </Box>
-              <Box>
-                <Text className="package__name" sx={{}}>
-                  {data.author?.name}
-                </Text>
-              </Box> */}
             </Card>
           </Flex>
         </Box>
@@ -118,7 +135,7 @@ const styles = {
     textAlign: 'left',
   },
   des: {
-    padding: '15px 30px 60px',
+    padding: '15px 30px 70px',
     textAlign: 'left',
   },
   pricingBox: {

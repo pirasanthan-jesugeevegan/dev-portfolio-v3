@@ -8,7 +8,7 @@ import ShareLogo from './share-social';
 import { urlFor } from '../../sanity';
 import { useCookies } from 'react-cookie';
 import { Link as Links } from './link';
-import { Link } from 'react-scroll';
+import BlogSidePanel from './blog-side-panel';
 
 const BlockRenderer = (props) => {
   const { style = 'normal' } = props.node;
@@ -91,12 +91,12 @@ const serializers = {
     block: BlockRenderer,
   },
   list: (props) =>
-    console.log('list', props) ||
-    (props.type === 'bullet' ? (
+    // console.log('list', props) ||
+    props.type === 'bullet' ? (
       <ul style={{ paddingBottom: '10px' }}>{props.children}</ul>
     ) : (
       <ol style={{ paddingBottom: '10px' }}>{props.children}</ol>
-    )),
+    ),
   listItem: (props) =>
     // console.log('list', props) ||
     props.type === 'bullet' ? (
@@ -156,8 +156,7 @@ const serializers = {
   },
 };
 
-export default function BlogPost({ data, read }) {
-  console.log(data);
+export default function BlogPost({ data, read, relatedPost }) {
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
 
@@ -271,8 +270,9 @@ export default function BlogPost({ data, read }) {
                 {data.title}
               </Heading>
               <Box sx={{ display: 'inline-flex' }}>
-                {data?.categories?.map((item) => (
+                {data?.categories?.map((item, i) => (
                   <Text
+                    key={i}
                     sx={{
                       marginRight: '10px',
                       padding: '2px 6px',
@@ -357,44 +357,7 @@ export default function BlogPost({ data, read }) {
               display: ['none', 'none', 'block'],
             }}
           >
-            <Box sx={{ position: 'sticky', top: '30px' }}>
-              {data.body.map((item, i) => {
-                if (item.style === 'h4') {
-                  return (
-                    <Box sx={styles.content}>
-                      <Link
-                        activeClass="active"
-                        to={item.children[0].text
-                          .replace(/([a-z])([A-Z])/g, '$1-$2')
-                          .replace(/\s+/g, '-')
-                          .toLowerCase()}
-                        href={`#${item.children[0].text
-                          .replace(/([a-z])([A-Z])/g, '$1-$2')
-                          .replace(/\s+/g, '-')
-                          .toLowerCase()}`}
-                        spy={true}
-                        smooth={true}
-                        offset={-70}
-                        duration={500}
-                        key={i}
-                      >
-                        {item?.children[0]?.text}
-                      </Link>
-                    </Box>
-                  );
-                }
-              })}
-              {/* <Box
-                sx={{
-                  margin: '10px',
-                  backgroundColor: '#252734',
-                  borderRadius: '5px',
-                  padding: '10px',
-                }}
-              >
-                Hello
-              </Box> */}
-            </Box>
+            <BlogSidePanel link={data} posts={relatedPost} />
           </Box>
         </Flex>
       </Grid>
@@ -421,27 +384,7 @@ const styles = {
       pt: [0, null, null, null, null, null, 5, 7],
     },
   },
-  content: {
-    borderLeft: '4px solid #f9f9f9',
-    paddingLeft: '10px',
-    marginLeft: '10px',
 
-    a: {
-      scrollBehavior: 'smooth',
-      color: 'white',
-      textDecoration: 'none',
-      display: 'block',
-      fontSize: '1.1em',
-      padding: '5px 0 5px 5px',
-      lineHeight: '1.2',
-      borderLeft: '5px solid transparent',
-      position: 'relative',
-      '&.active': {
-        color: 'secondary',
-        borderLeftColor: 'secondary',
-      },
-    },
-  },
   strong: {
     boxShadow: 'inset 0 -0.2em white, inset 0 -0.25em blue',
     display: 'inline',

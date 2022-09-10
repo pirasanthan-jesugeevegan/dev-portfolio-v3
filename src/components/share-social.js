@@ -10,7 +10,6 @@ import {
 } from 'react-share';
 
 export default function ShareLogo({ data }) {
-  console.log(data.slug.current);
   return (
     <Flex>
       <Box sx={styles.icons_title}>Share</Box>

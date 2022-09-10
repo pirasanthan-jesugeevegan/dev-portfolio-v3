@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Container, Flex, Button, Text } from 'theme-ui';
+import { useState, useEffect } from 'react';
 import { keyframes } from '@emotion/core';
-import React from 'react';
 import theme from 'theme';
 import Logo from 'components/logo';
 import LogoWhite from 'assets/logo.svg';
@@ -13,8 +13,11 @@ import { Icon } from '@iconify/react';
 import BlogPost from '../../components/blog-post';
 import Head from 'next/head';
 import readingTime from 'reading-time';
+import { getPostbyCat } from '../../service/get-post-by-cat';
 
 export default function Post({ post }) {
+  const [relatedPost, setRelatedPost] = useState(null);
+
   let str;
   for (let i = 0; i < post.body.length; i++) {
     if (post?.body[i].style) {
@@ -23,7 +26,9 @@ export default function Post({ post }) {
       str += post?.body[i].code;
     }
   }
-
+  useEffect(() => {
+    getPostbyCat(post.categories).then((response) => setRelatedPost(response));
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>
@@ -100,7 +105,12 @@ export default function Post({ post }) {
           </Container>
         </header>
         <main>
-          <BlogPost data={post} read={readingTime(str)} key={post._id} />
+          <BlogPost
+            data={post}
+            read={readingTime(str)}
+            relatedPost={relatedPost}
+            key={post._id}
+          />
         </main>
       </DrawerProvider>
     </ThemeProvider>

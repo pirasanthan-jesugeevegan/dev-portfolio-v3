@@ -87,6 +87,7 @@ export default function BlogCard({ data }) {
                         month: 'short',
                         day: 'numeric',
                       })}{' '}
+                      • {data.text}
                     </Text>
                   </Box>
                 </Flex>

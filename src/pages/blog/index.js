@@ -13,6 +13,7 @@ import { DrawerProvider } from '../../contexts/drawer/drawer.provider';
 import MobileDrawer from '../../components/header/mobile-drawer';
 import { sanityClient } from '../../../sanity';
 import { Icon } from '@iconify/react';
+import { readTime } from '../../utils/read-time';
 
 export default function Blog({
   post,
@@ -21,6 +22,9 @@ export default function Blog({
   image = 'https://www.pirasanth.com/_next/static/images/Profile-74b29cdf06ceec5b19d6e084caffc9e7.png',
   title = 'Blog | Pirasanth',
 }) {
+  for (const item of post) {
+    Object.assign(item, readTime(item.body));
+  }
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>

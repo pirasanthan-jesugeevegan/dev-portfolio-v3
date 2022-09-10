@@ -2,7 +2,6 @@
 import { jsx, Box, Flex, Text } from 'theme-ui';
 import { Link as Links } from './link';
 export default function BlogNextPrevious({ data }) {
-  console.log(data);
   //   if (data.nextPost.title.length && data.previousPost.title.length > 35) {
   //     data.previousPost.title = data.previousPost.title.substring(0, 34) + '...';
   //     data.nextPost.title = data.nextPost.title.substring(0, 34) + '...';

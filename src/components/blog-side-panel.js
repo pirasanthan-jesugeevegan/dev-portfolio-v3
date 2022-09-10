@@ -1,21 +1,13 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, Heading, Button, Text } from 'theme-ui';
 import { Link } from 'react-scroll';
-import readingTime from 'reading-time';
+import { readTime } from '../utils/read-time';
+import { Icon } from '@iconify/react';
 
 export default function blogSidePanel({ link, posts }) {
-  const ddd = (post) => {
-    let str;
-    for (let i = 0; i < post.body.length; i++) {
-      if (post?.body[i].style) {
-        str += post?.body[i].children[0].text;
-      } else {
-        str += post?.body[i].code;
-      }
-    }
-    return str;
-  };
-
+  for (var i = 0; i < posts?.length; i++) {
+    Object.assign(posts[i], readTime(posts[i].body));
+  }
   return (
     <Box sx={{ position: 'sticky', top: '30px' }}>
       {link.body.map((item, i) => {
@@ -99,7 +91,12 @@ export default function blogSidePanel({ link, posts }) {
                         month: 'short',
                         day: 'numeric',
                       })}{' '}
-                      {/* • {ddd(item)} */}
+                      •{' '}
+                      <Icon
+                        icon="bx:time-five"
+                        sx={{ margin: '-2px', marginRight: '2px' }}
+                      />
+                      {item.text}
                     </Text>
                   </Box>
                 </Flex>

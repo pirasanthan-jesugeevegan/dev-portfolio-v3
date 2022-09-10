@@ -311,7 +311,7 @@ export default function BlogPost({ data, read, relatedPost }) {
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric',
-                  })}{' '}
+                  })}
                   • <span style={{ color: '#ffc35b' }}>{read.text}</span>
                 </Text>
               </Flex>

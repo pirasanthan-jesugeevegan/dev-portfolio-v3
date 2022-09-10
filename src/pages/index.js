@@ -10,6 +10,7 @@ import About from 'sections/about';
 import Skills from 'sections/skills';
 import Portfolio from 'sections/portfolio';
 import Blog from 'sections/blog';
+import { readTime } from '../utils/read-time';
 
 export default function IndexPage({ blogs, skills, projects }) {
   // console.log(blogs);
@@ -25,6 +26,10 @@ export default function IndexPage({ blogs, skills, projects }) {
   // } else {
   //   console.log('Selected date is NOT in the past');
   // }
+
+  for (const blog of blogs) {
+    Object.assign(blog, readTime(blog.body));
+  }
   const IsPost = (blogs) => {
     for (const element of blogs) {
       if (element.publish === true) return true;
@@ -49,23 +54,24 @@ export default function IndexPage({ blogs, skills, projects }) {
 
 export const getServerSideProps = async () => {
   const postQuery = `*[_type == "post"]{
-  _id,
-  title,
-  likes,
-  publish,
-  publishedAt,
-  categories[] -> {
-          title
+    _id,
+    title,
+    likes,
+    body,
+    publish,
+    publishedAt,
+    categories[] -> {
+            title
+    },
+    author-> {
+    name,
+    image,
   },
-  author-> {
-  name,
-  image,
-},
-keyword,
-slug,
-mainImage,
-description
-}`;
+  keyword,
+  slug,
+  mainImage,
+  description
+  }`;
 
   const skillQuery = `
   *[_type == "skills"] | order(order asc){

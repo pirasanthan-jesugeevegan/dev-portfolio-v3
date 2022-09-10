@@ -212,8 +212,10 @@ export const getServerSideProps = async (pageContext) => {
         mainImage,
         slug,
         body,
-        keyword
-    }
+        keyword,
+        'previousPost': *[_type == 'post' && _createdAt < ^._createdAt][0],
+        'nextPost': *[_type == 'post' && _createdAt > ^._createdAt] | order(_createdAt asc)[0]
+    } 
     `;
   const post = await sanityClient.fetch(query, { pageSlug });
 

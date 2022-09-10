@@ -9,6 +9,7 @@ import { urlFor } from '../../sanity';
 import { useCookies } from 'react-cookie';
 import { Link as Links } from './link';
 import BlogSidePanel from './blog-side-panel';
+import BlogNextPrevious from './blog-next-previous';
 
 const BlockRenderer = (props) => {
   const { style = 'normal' } = props.node;
@@ -346,6 +347,7 @@ export default function BlogPost({ data, read, relatedPost }) {
                 <ShareLogo data={data} />
               </Box>
             </Flex>
+            <BlogNextPrevious data={data} />
           </Box>
 
           <Box

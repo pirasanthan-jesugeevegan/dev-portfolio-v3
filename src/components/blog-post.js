@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Box, Flex, Image, Text, Avatar, Heading, Grid } from 'theme-ui';
 import PortableText from '@sanity/block-content-to-react';
 import { Icon } from '@iconify/react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
 import Footer from './footer/footer';
 import ShareLogo from './share-social';
 import { urlFor } from '../../sanity';
@@ -10,165 +9,18 @@ import { useCookies } from 'react-cookie';
 import { Link as Links } from './link';
 import BlogSidePanel from './blog-side-panel';
 import BlogNextPrevious from './blog-next-previous';
-
-const BlockRenderer = (props) => {
-  const { style = 'normal' } = props.node;
-
-  if (/^h\d/.test(style)) {
-    return (
-      <Heading
-        id={
-          props.node.style === 'h4'
-            ? props.node.children[0].text
-                .replace(/([a-z])([A-Z])/g, '$1-$2')
-                .replace(/\s+/g, '-')
-                .toLowerCase()
-            : ''
-        }
-        variant="highlight"
-        style={{
-          position: 'relative',
-          letterSpacing: 1,
-          marginTop: '1.14em',
-        }}
-        {...props}
-      />
-    );
-  }
-  if (style === 'normal') {
-    return (
-      <Text
-        as="p"
-        variant="primaryText"
-        sx={{ margin: '20px 0px' }}
-        {...props}
-      />
-    );
-  }
-  if (style === 'blockquote') {
-    return (
-      <blockquote
-        style={{
-          boxShadow: '#ffc35b 3px 0px 0px 0px inset',
-          paddingLeft: '23px',
-          marginLeft: '0px',
-          fontStyle: 'italic',
-        }}
-      >
-        {props.children}
-      </blockquote>
-    );
-  }
-  // if (props?.node?.markDefs[0]?._type === 'link') {
-  //   <a href={props?.node?.markDefs[0]?.href} style={{ color: '#5757f9' }}>
-  //     {props?.node?.children[0]?.text}
-  //   </a>;
-  // }
-  // Fall back to default handling
-  return PortableText.defaultSerializers.types.block(props);
-};
-const serializers = {
-  types: {
-    authorReference: ({ node }) => <span>{node.author.name}</span>,
-    code: (props) => (
-      <SyntaxHighlighter
-        language={props.node.language || 'gherkin'}
-        customStyle={{ padding: '1rem', fontSize: '14px', borderRadius: '5px' }}
-        wrapLines="false"
-      >
-        {props.node.code}
-      </SyntaxHighlighter>
-    ),
-
-    image: (asset) => (
-      <Image
-        src={urlFor(asset.node)}
-        sx={{
-          width: '-webkit-fill-available',
-        }}
-        alt={asset?.node?.asset?._ref}
-      />
-    ),
-    block: BlockRenderer,
-  },
-  list: (props) =>
-    // console.log('list', props) ||
-    props.type === 'bullet' ? (
-      <ul style={{ paddingBottom: '10px' }}>{props.children}</ul>
-    ) : (
-      <ol style={{ paddingBottom: '10px' }}>{props.children}</ol>
-    ),
-  listItem: (props) =>
-    // console.log('list', props) ||
-    props.type === 'bullet' ? (
-      <li style={{ paddingBottom: '10px' }}>{props.children}</li>
-    ) : (
-      <li style={{ paddingBottom: '10px', fontSize: '16px' }}>
-        {props.children}
-      </li>
-    ),
-  marks: {
-    em: ({ children }) => <em style={{ color: 'blue' }}>{children}</em>,
-    strong: ({ children }) => (
-      <strong style={{ color: '#ffc35b' }}>{children}</strong>
-    ),
-    code: ({ children }) => (
-      <code
-        style={{
-          padding: '0.2em 0.4em',
-          margin: '0',
-          fontSize: '85%',
-          backgroundColor: 'rgb(87 88 100)',
-          borderRadius: '6px',
-        }}
-      >
-        {children}
-      </code>
-    ),
-    link: ({ mark, children }) => (
-      // console.log(mark),
-      <a href={mark?.href} style={{ color: '#ffc35b', textDecoration: 'none' }}>
-        {children}
-      </a>
-    ),
-    li: ({ children }) => (
-      <li
-        style={{
-          padding: '5px',
-          marginLeft: '25px',
-        }}
-      >
-        {children}
-      </li>
-    ),
-    footnote: ({ children, markKey, mark }) => (
-      <span>
-        {children}
-        <sup>
-          {/* 
-             If you want numbers here, you can reuse the reduce function from Footnotes.js
-             to e.g. an object with markKey as keys and the index as values.
-             {[markKey]: index}. 
-          */}
-          <a href={`#${markKey}`}>#</a>
-        </sup>
-      </span>
-    ),
-  },
-};
+import { serializers } from '../utils/serializers';
+import { updatePost } from '../service/update-post';
 
 export default function BlogPost({ data, read, relatedPost }) {
+  const [postId] = useState(data._id);
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
 
   const onBtnClick = () => {
-    if (cookies.access_token === undefined) {
-      setCookie('access_token', true, {
-        path: '/',
-      });
-      setCount(count + 1);
-    } else if (cookies.access_token === 'false') {
-      setCookie('access_token', true, {
+    console.log(cookies);
+    if (cookies.access_token === undefined || cookies.access_token !== postId) {
+      setCookie('access_token', postId, {
         path: '/',
       });
       setCount(count + 1);
@@ -191,21 +43,7 @@ export default function BlogPost({ data, read, relatedPost }) {
           },
         },
       ];
-
-      fetch(
-        `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
-        {
-          method: 'post',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SANITY_API_TOKEN}`,
-          },
-          body: JSON.stringify({ mutations }),
-        }
-      )
-        .then((response) => response.json())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+      updatePost(mutations);
     }
   }, [count]);
 
@@ -367,31 +205,3 @@ export default function BlogPost({ data, read, relatedPost }) {
     </section>
   );
 }
-
-const styles = {
-  box: {
-    px: [5, 5, 5, 5, 11, '25%'],
-  },
-  banner: {
-    container: {
-      display: 'flex',
-      pt: [11],
-    },
-
-    contentBox: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      flexShrink: 0,
-      pt: [0, null, null, null, null, null, 5, 7],
-    },
-  },
-
-  strong: {
-    boxShadow: 'inset 0 -0.2em white, inset 0 -0.25em blue',
-    display: 'inline',
-    position: 'relative',
-    paddingBottom: '10px',
-    textDecoration: 'none',
-  },
-};

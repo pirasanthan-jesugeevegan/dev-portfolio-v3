@@ -53,7 +53,7 @@ export default function Blog({
           <meta name="twitter:description" content={description}></meta>
           <meta name="twitter:image" content={image}></meta>
         </Head>
-        <header sx={styles.header} id="header">
+        <header sx={styles.header} id="header" nav={true}>
           <Container sx={styles.container}>
             <Logo src={LogoWhite} />
             <Flex as="nav" sx={styles.nav}></Flex>

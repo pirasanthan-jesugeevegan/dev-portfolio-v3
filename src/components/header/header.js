@@ -10,7 +10,7 @@ import menuItems from './header.data';
 import { Icon } from '@iconify/react';
 import { logEvent } from 'analytics/index';
 
-export default function Header({ className }) {
+export default function Header({ className, nav }) {
   return (
     <DrawerProvider>
       <header sx={styles.header} className={className} id="header">
@@ -18,20 +18,21 @@ export default function Header({ className }) {
           <Logo src={LogoWhite} />
 
           <Flex as="nav" sx={styles.nav}>
-            {menuItems.map(({ path, label }, i) => (
-              <Link
-                activeClass="active"
-                to={path}
-                href={`#${path}`}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                key={i}
-              >
-                {label}
-              </Link>
-            ))}
+            {nav === true &&
+              menuItems.map(({ path, label }, i) => (
+                <Link
+                  activeClass="active"
+                  to={path}
+                  href={`#${path}`}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  key={i}
+                >
+                  {label}
+                </Link>
+              ))}
           </Flex>
 
           <Button

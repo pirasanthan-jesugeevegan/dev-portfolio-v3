@@ -16,7 +16,7 @@ export default function Layout({ children }) {
   return (
     <React.Fragment>
       <Sticky innerZ={1001} top={0} onStateChange={handleStateChange}>
-        <Header className={`${isSticky ? 'sticky' : 'unSticky'}`} />
+        <Header className={`${isSticky ? 'sticky' : 'unSticky'}`} nav={true} />
       </Sticky>
       <main
         sx={{

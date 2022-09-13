@@ -13,20 +13,6 @@ import Blog from 'sections/blog';
 import { readTime } from '../utils/read-time';
 
 export default function IndexPage({ blogs, skills, projects }) {
-  // console.log(blogs);
-  // var now = new Date(
-  //   new Date().toString().split('GMT')[0] + ' UTC'
-  // ).toISOString();
-  // console.log(
-  //   new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString()
-  // );
-
-  // if (blogs[1].publishedAt > now) {
-  //   console.log('Selected date is in the past');
-  // } else {
-  //   console.log('Selected date is NOT in the past');
-  // }
-
   for (const blog of blogs) {
     Object.assign(blog, readTime(blog.body));
   }

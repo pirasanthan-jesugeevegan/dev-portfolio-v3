@@ -14,13 +14,21 @@ import Profile from '../assets/Profile.png';
 import Header from '../assets/About.png';
 import { Icon } from '@iconify/react';
 import { logEvent } from '../analytics/index';
+import { useGlitch } from 'react-powerglitch';
+
 export default function About() {
+  const glitch = useGlitch();
   return (
     <section sx={styles.banner} id="about">
       <Container sx={styles.banner.container}>
         <Grid sx={styles.grid}>
           <Box sx={styles.banner.contentBox}>
-            <Image src={Header} sx={styles.header} alt="about" />
+            <Image
+              src={Header}
+              sx={styles.header}
+              alt="about"
+              ref={glitch.ref}
+            />
             <Heading
               as="h1"
               variant="highlight"
@@ -62,7 +70,15 @@ export default function About() {
           </Box>
           <Box sx={styles.banner.portfolio} style={{ alignItems: 'center' }}>
             <Box sx={styles.profileBackground}>
-              <Image variant="profileImage" src={Profile} alt="Profile" />
+              <Box sx={{ transform: 'rotate(6deg)' }}>
+                <Image
+                  // variant="profileImage"
+                  src={Profile}
+                  alt="Profile"
+                  ref={glitch.ref}
+                  sx={styles.profileImage}
+                />
+              </Box>
             </Box>
           </Box>
         </Grid>
@@ -72,6 +88,12 @@ export default function About() {
 }
 
 const styles = {
+  profileImage: {
+    border: '4px solid #252734',
+    boxSizing: 'border-box',
+    borderRadius: '8px',
+    // ,
+  },
   grid: {
     gridGap: [
       '37px 0',

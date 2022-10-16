@@ -3,12 +3,14 @@ import { jsx } from 'theme-ui';
 import { Container, Grid, Image } from 'theme-ui';
 import FeatureCard from 'components/feature-card.js';
 import Header from 'assets/Skills.png';
+import { useGlitch } from 'react-powerglitch';
 
 export default function Skills({ skills }) {
+  const glitch = useGlitch();
   return (
     <section sx={{ variant: 'section.feature' }} id="skills">
       <Container>
-        <Image src={Header} sx={styles.head} alt="skills" />
+        <Image src={Header} sx={styles.head} alt="skills" ref={glitch.ref} />
         <Grid sx={styles.grid}>
           {skills.map((item) => (
             <FeatureCard

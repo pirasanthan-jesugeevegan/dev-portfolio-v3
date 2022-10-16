@@ -2,12 +2,19 @@
 import { jsx, Container, Grid, Image } from 'theme-ui';
 import PriceCard from 'components/price-card';
 import Title from 'assets/Portfolio.png';
+import { useGlitch } from 'react-powerglitch';
 
 export default function Portfolio({ projects }) {
+  const glitch = useGlitch();
   return (
     <section id="portfolio" sx={styles.pricing}>
       <Container>
-        <Image src={Title} sx={styles.header} alt="portfolio" />
+        <Image
+          src={Title}
+          sx={styles.header}
+          alt="portfolio"
+          ref={glitch.ref}
+        />
         <Grid sx={styles.grid}>
           {projects.map(
             (packageData) =>

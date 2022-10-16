@@ -3,16 +3,18 @@ import { jsx, Container, Grid, Image, Link } from 'theme-ui';
 import BlogCard from 'components/blog-card';
 import Title from 'assets/Blog.png';
 import { logEvent } from '../analytics/index';
+import { useGlitch } from 'react-powerglitch';
 
 export default function Blog({ blogs }) {
   const random = blogs.sort(() => (Math.random() > 0.5 ? 1 : -1));
   blogs = random.slice(0, 3);
+  const glitch = useGlitch();
 
   return (
     <section id="blog" sx={styles.pricing}>
       <Container>
         <Grid>
-          <Image src={Title} sx={styles.header} alt="blog" />
+          <Image src={Title} sx={styles.header} alt="blog" ref={glitch.ref} />
           <Link
             href="/blog"
             sx={{

@@ -179,7 +179,6 @@ export default {
     border: '4px solid #252734',
     boxSizing: 'border-box',
     borderRadius: '8px',
-    transform: 'rotate(6deg)',
   },
   links: {
     default: {

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Container, Grid, Box, Heading, Text } from 'theme-ui';
+import AnimatedText from 'react-animated-text-content';
 
 export default function About() {
   return (
@@ -11,14 +12,51 @@ export default function About() {
             <Box sx={styles.profileBackground}></Box>
             <Box sx={styles.innerContainer}>
               <Heading as="h1" variant="heroPrimary">
-                Hi!
+                <AnimatedText
+                  type="words" // animate words or chars
+                  animation={{
+                    x: '200px',
+                    y: '-20px',
+                    scale: 1.1,
+                    ease: 'ease-in-out',
+                  }}
+                  animationType="float"
+                  interval={0.06}
+                  duration={0.8}
+                  tag="p"
+                  className="animated-paragraph"
+                  includeWhiteSpaces
+                  threshold={0.1}
+                  rootMargin="20%"
+                >
+                  Hi!
+                </AnimatedText>
               </Heading>
+
               <Text as="h1" variant="heroSecondary">
                 I’m <span style={{ color: '#FFC35B' }}>Pirasanth</span> — but
                 call me <span style={{ color: '#FFC35B' }}>PJ</span>.
               </Text>
               <Text as="h1" variant="heroSecondary">
-                I’m a frontend developer and automation QA living in London.
+                <AnimatedText
+                  type="words" // animate words or chars
+                  animation={{
+                    x: '200px',
+                    y: '-20px',
+                    scale: 1.1,
+                    ease: 'ease-in-out',
+                  }}
+                  animationType="float"
+                  interval={0.1}
+                  duration={0.8}
+                  tag="p"
+                  className="animated-paragraph"
+                  includeWhiteSpaces
+                  threshold={0.3}
+                  rootMargin="10%"
+                >
+                  I’m a frontend developer and automation QA living in London.
+                </AnimatedText>
               </Text>
             </Box>
           </Box>

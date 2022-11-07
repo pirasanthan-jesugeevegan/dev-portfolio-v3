@@ -46,8 +46,9 @@ export default function Header({ className, nav, user }) {
                 category: 'clicks',
                 label: 'click_contact',
               });
-              window.location.href =
-                'https://uk.linkedin.com/in/pirasanth-jesugeevegan';
+              window.location.href = user
+                ? 'https://www.linkedin.com/in/thanchila-pirasanthan-663056129/'
+                : 'https://uk.linkedin.com/in/pirasanth-jesugeevegan';
             }}
             className="donate__btn"
             variant="secondary"
@@ -63,8 +64,9 @@ export default function Header({ className, nav, user }) {
                 category: 'clicks',
                 label: 'click_cv',
               });
-              window.location.href =
-                'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
+              window.location.href = user
+                ? 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/thanchila.somanathan%40fdmgroup.com%20-%20V0.2.pdf?alt=media&token=97ce9205-e1a3-4f39-8d7b-098416a2b8eb'
+                : 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
             }}
             className="donate__btn"
             variant="secondary"

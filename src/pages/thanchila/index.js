@@ -45,7 +45,7 @@ export default function Than({
           <Hero user="thanchila" />
           <About user="thanchila" />
           <Skills skills={skills} key={skills.title} user="thanchila" />
-          <Blog blogs={blogs} key={blogs._id} />
+          {IsPost(blogs) && <Blog blogs={blogs} key={blogs._id} />}
         </Layout>
       </StickyProvider>
     </ThemeProvider>

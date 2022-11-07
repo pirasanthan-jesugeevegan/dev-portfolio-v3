@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import { Container, Grid, Box, Heading, Text } from 'theme-ui';
 import AnimatedText from 'react-animated-text-content';
 
-export default function About() {
+export default function About({ user }) {
   return (
     <section sx={styles.banner} id="about">
       <Container sx={styles.banner.container}>
@@ -32,11 +32,17 @@ export default function About() {
                   Hi!
                 </AnimatedText>
               </Heading>
-
-              <Text as="h1" variant="heroSecondary">
-                I’m <span style={{ color: '#FFC35B' }}>Pirasanth</span> — but
-                call me <span style={{ color: '#FFC35B' }}>PJ</span>.
-              </Text>
+              {user ? (
+                <Text as="h1" variant="heroSecondary">
+                  I’m <span style={{ color: '#FFC35B' }}>Thanchila</span> — but
+                  call me <span style={{ color: '#FFC35B' }}>Than</span>.
+                </Text>
+              ) : (
+                <Text as="h1" variant="heroSecondary">
+                  I’m <span style={{ color: '#FFC35B' }}>Pirasanth</span> — but
+                  call me <span style={{ color: '#FFC35B' }}>PJ</span>.
+                </Text>
+              )}
               <Text as="h1" variant="heroSecondary">
                 <AnimatedText
                   type="words" // animate words or chars
@@ -55,7 +61,9 @@ export default function About() {
                   threshold={0.3}
                   rootMargin="10%"
                 >
-                  I’m a frontend developer and automation QA living in London.
+                  {user
+                    ? 'I’m a QA living in London.'
+                    : 'I’m a frontend developer and automation QA living in London.'}
                 </AnimatedText>
               </Text>
             </Box>

@@ -11,12 +11,13 @@ import {
   Image,
 } from 'theme-ui';
 import Profile from '../assets/Profile.png';
+import ProfileThan from '../assets/ThanProfile.png';
 import Header from '../assets/About.png';
 import { Icon } from '@iconify/react';
 import { logEvent } from '../analytics/index';
 import { useGlitch } from 'react-powerglitch';
 
-export default function About() {
+export default function About({ user }) {
   const glitch = useGlitch();
   return (
     <section sx={styles.banner} id="about">
@@ -57,8 +58,9 @@ export default function About() {
                     category: 'clicks',
                     label: 'click_cv',
                   });
-                  window.location.href =
-                    'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
+                  window.location.href = user
+                    ? 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/thanchila.somanathan%40fdmgroup.com%20-%20V0.2.pdf?alt=media&token=97ce9205-e1a3-4f39-8d7b-098416a2b8eb'
+                    : 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
                 }}
                 variant="secondary"
                 aria-label="Download CV"
@@ -73,7 +75,7 @@ export default function About() {
               <Box sx={{ transform: 'rotate(6deg)' }}>
                 <Image
                   // variant="profileImage"
-                  src={Profile}
+                  src={user ? ProfileThan : Profile}
                   alt="Profile"
                   ref={glitch.ref}
                   sx={styles.profileImage}

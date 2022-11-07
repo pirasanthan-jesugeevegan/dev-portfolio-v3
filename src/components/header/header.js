@@ -10,7 +10,10 @@ import menuItems from './header.data';
 import { Icon } from '@iconify/react';
 import { logEvent } from 'analytics/index';
 
-export default function Header({ className, nav }) {
+export default function Header({ className, nav, user }) {
+  if (user) {
+    menuItems = menuItems.filter((el) => el.path != 'portfolio');
+  }
   return (
     <DrawerProvider>
       <header sx={styles.header} className={className} id="header">

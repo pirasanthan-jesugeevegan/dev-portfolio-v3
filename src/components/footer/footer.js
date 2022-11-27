@@ -3,30 +3,33 @@ import { jsx, Box, Container, Text, Image } from 'theme-ui';
 import { Link } from 'react-scroll';
 import logo from '../../assets/logo.svg';
 import { Icon } from '@iconify/react';
-const social = [
-  {
-    path: 'https://www.linkedin.com/in/pirasanth-jesugeevegan/',
-    icon: <Icon icon="akar-icons:linkedin-fill" />,
-  },
-  {
-    path: 'https://github.com/pirasanthan-jesugeevegan',
-    icon: <Icon icon="akar-icons:github-fill" />,
-  },
-  {
-    path: 'https://www.instagram.com/qa_automation_pj/',
-    icon: <Icon icon="akar-icons:instagram-fill" />,
-  },
-];
-export default function Footer() {
+
+export default function Footer({ author }) {
+  const social = [
+    {
+      path: author[0].social.linkedin,
+      icon: <Icon icon="akar-icons:linkedin-fill" />,
+    },
+    {
+      path: author[0].social.github,
+      icon: <Icon icon="akar-icons:github-fill" />,
+    },
+    {
+      path: author[0].social.instagram,
+      icon: <Icon icon="akar-icons:instagram-fill" />,
+    },
+  ];
+  const fullName =
+    author[0].name === 'PJ'
+      ? 'Pirasanthan Jesugeevegan'
+      : 'Thanchila Pirasanthan';
   return (
     <footer sx={styles.footer}>
       <Container sx={styles.footer.container}>
         <Box sx={styles.footer.footerTopArea}>
           <Image sx={{ width: '40px' }} src={logo} />
           <Text sx={{ alignSelf: 'center', paddingLeft: '10px' }}>
-            ©2021{' '}
-            <span sx={styles.footer.copyright}>Pirasanthan Jesugeevegan</span>{' '}
-            (PJ)
+            ©2021 <span sx={styles.footer.copyright}>{fullName}</span>
           </Text>
           <Box sx={styles.social}>
             {social.map(({ path, icon }, i) => (

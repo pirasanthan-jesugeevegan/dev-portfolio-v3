@@ -18,7 +18,6 @@ export default function BlogPost({ data, read, relatedPost }) {
   const [cookies, setCookie] = useCookies(['access_token']);
 
   const onBtnClick = () => {
-    console.log(cookies);
     if (cookies.access_token === undefined || cookies.access_token !== postId) {
       setCookie('access_token', postId, {
         path: '/',

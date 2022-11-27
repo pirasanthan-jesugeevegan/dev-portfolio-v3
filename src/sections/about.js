@@ -10,14 +10,19 @@ import {
   Button,
   Image,
 } from 'theme-ui';
-import Profile from '../assets/Profile.png';
-import ProfileThan from '../assets/ThanProfile.png';
 import Header from '../assets/About.png';
-import { Icon } from '@iconify/react';
-import { logEvent } from '../analytics/index';
 import { useGlitch } from 'react-powerglitch';
+import { urlFor } from '../../sanity';
 
-export default function About({ user }) {
+export default function About({ author }) {
+  const NEXT_PUBLIC_SANITY_PROJECT_ID =
+    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const NEXT_PUBLIC_SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET;
+  const getUrlFromId = (ref) => {
+    const [_file, id, extension] = ref.split('-');
+    return `https://cdn.sanity.io/files/${NEXT_PUBLIC_SANITY_PROJECT_ID}/${NEXT_PUBLIC_SANITY_DATASET}/${id}.${extension}`;
+  };
+
   const glitch = useGlitch();
   return (
     <section sx={styles.banner} id="about">
@@ -35,39 +40,33 @@ export default function About({ user }) {
               variant="highlight"
               style={{ position: 'relative' }}
             >
-              I love to program, write automation scripts, travel, and lift
-              heavy things.
+              {author.about.header}
             </Heading>
             <Text as="p" variant="primaryText">
-              I have currently nestled myself into a niche for building
-              automation script and still have an interest in developing web
-              applications
+              {author.about.p1}
             </Text>
             <Text as="p" variant="primaryText">
-              I define myself by the work I want to do as skills can be taught
-              and learnt but personality is inherent. I am eager to continue
-              learning, continue challenging myself, and most important continue
-              to succeed in every task I put myself into.
+              {author.about.p2}
             </Text>
-            <Flex>
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  logEvent({
-                    action: 'CV_MainPage',
-                    category: 'clicks',
-                    label: 'click_cv',
-                  });
-                  window.location.href = user
-                    ? 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/thanchila.somanathan%40fdmgroup.com%20-%20V0.2.pdf?alt=media&token=97ce9205-e1a3-4f39-8d7b-098416a2b8eb'
-                    : 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
-                }}
-                variant="secondary"
-                aria-label="Download CV"
-              >
-                <Icon icon="feather:download" style={{ marginRight: '10px' }} />
-                Download CV (PDF)
-              </Button>
+            <Flex
+              sx={{
+                justifyContent: ['center', 'normal'],
+              }}
+            >
+              {author?.achievements &&
+                author?.achievements.map((achievement) => (
+                  <Button
+                    sx={styles.cert}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = getUrlFromId(
+                        achievement.document.asset._ref
+                      );
+                    }}
+                  >
+                    <Image src={urlFor(achievement.value)} />
+                  </Button>
+                ))}
             </Flex>
           </Box>
           <Box sx={styles.banner.portfolio} style={{ alignItems: 'center' }}>
@@ -75,7 +74,7 @@ export default function About({ user }) {
               <Box sx={{ transform: 'rotate(6deg)' }}>
                 <Image
                   // variant="profileImage"
-                  src={user ? ProfileThan : Profile}
+                  src={urlFor(author.image)}
                   alt="Profile"
                   ref={glitch.ref}
                   sx={styles.profileImage}
@@ -94,7 +93,13 @@ const styles = {
     border: '4px solid #252734',
     boxSizing: 'border-box',
     borderRadius: '8px',
+
     // ,
+  },
+  cert: {
+    width: '50%',
+    justifyContent: 'center',
+    padding: '5px',
   },
   grid: {
     gridGap: [

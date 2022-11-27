@@ -12,7 +12,7 @@ import Portfolio from 'sections/portfolio';
 import Blog from 'sections/blog';
 import { readTime } from '../utils/read-time';
 
-export default function IndexPage({ blogs, skills, projects }) {
+export default function IndexPage({ author, blogs, skills, projects }) {
   for (const blog of blogs) {
     Object.assign(blog, readTime(blog.body));
   }
@@ -22,14 +22,15 @@ export default function IndexPage({ blogs, skills, projects }) {
     }
   };
   IsPost(blogs);
+
   return (
     <ThemeProvider theme={theme}>
       <StickyProvider>
-        <Layout>
+        <Layout author={author} user="PJ">
           <SEO />
           <Hero />
-          <About />
-          <Skills skills={skills} key={skills.title} />
+          <About author={author[0]} />
+          <Skills skills={author[0].skills} key={author[0].skills} />
           <Portfolio projects={projects} key={projects.title} />
           {IsPost(blogs) && <Blog blogs={blogs} key={blogs._id} />}
         </Layout>
@@ -68,6 +69,10 @@ export const getServerSideProps = async () => {
 }
   `;
 
+  const authorQuery = `
+  *[_type == "author"]
+  `;
+
   const projectQuery = `
 *[_type == "projects"] | order(order asc){ 
   order,
@@ -83,13 +88,14 @@ export const getServerSideProps = async () => {
   const blogs = await sanityClient.fetch(postQuery);
   const skills = await sanityClient.fetch(skillQuery);
   const projects = await sanityClient.fetch(projectQuery);
-
+  const author = await sanityClient.fetch(authorQuery);
   if (!blogs.length && skills.length && projects.length) {
     return {
       props: {
         blogs: [],
         skills: [],
         projects: [],
+        author: [],
       },
     };
   } else {
@@ -98,6 +104,7 @@ export const getServerSideProps = async () => {
         blogs,
         skills,
         projects,
+        author,
       },
     };
   }

@@ -4,7 +4,10 @@ import React, { useState } from 'react';
 import Sticky from 'react-stickynode';
 import Header from './header/header';
 import Footer from './footer/footer';
-export default function Layout({ children, user }) {
+export default function Layout({ children, user, author }) {
+  author = author.filter((auth) => {
+    return auth.name === user;
+  });
   const [isSticky, setIsSticky] = useState(false);
   const handleStateChange = (status) => {
     if (status.status === Sticky.STATUS_FIXED) {
@@ -19,7 +22,7 @@ export default function Layout({ children, user }) {
         <Header
           className={`${isSticky ? 'sticky' : 'unSticky'}`}
           nav={true}
-          user={user}
+          author={author}
         />
       </Sticky>
       <main
@@ -29,7 +32,7 @@ export default function Layout({ children, user }) {
       >
         {children}
       </main>
-      <Footer />
+      <Footer author={author} />
     </React.Fragment>
   );
 }

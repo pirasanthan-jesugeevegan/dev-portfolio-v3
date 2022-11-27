@@ -7,22 +7,22 @@ import { Link } from 'react-scroll';
 import { Icon } from '@iconify/react';
 import menuItems from './header.data';
 import logo from '../../assets/logo.svg';
-const social = [
-  {
-    path: 'https://www.linkedin.com/in/pirasanth-jesugeevegan/',
-    icon: <Icon icon="akar-icons:linkedin-fill" />,
-  },
-  {
-    path: 'https://github.com/pirasanthan-jesugeevegan',
-    icon: <Icon icon="akar-icons:github-fill" />,
-  },
-  {
-    path: 'https://www.instagram.com/qa_automation_pj/',
-    icon: <Icon icon="akar-icons:instagram-fill" />,
-  },
-];
 
-const MobileDrawer = () => {
+const MobileDrawer = ({ author }) => {
+  const social = [
+    {
+      path: author[0].social.linkedin,
+      icon: <Icon icon="akar-icons:linkedin-fill" />,
+    },
+    {
+      path: author[0].social.github,
+      icon: <Icon icon="akar-icons:github-fill" />,
+    },
+    {
+      path: author[0].social.instagram,
+      icon: <Icon icon="akar-icons:instagram-fill" />,
+    },
+  ];
   const { state, dispatch } = useContext(DrawerContext);
 
   const setCurrentHero = () => {

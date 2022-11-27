@@ -10,16 +10,22 @@ import menuItems from './header.data';
 import { Icon } from '@iconify/react';
 import { logEvent } from 'analytics/index';
 
-export default function Header({ className, nav, user }) {
-  if (user) {
+export default function Header({ className, nav, author }) {
+  if (author[0].name === 'Thanchila') {
     menuItems = menuItems.filter((el) => el.path != 'portfolio');
   }
+  const NEXT_PUBLIC_SANITY_PROJECT_ID =
+    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const NEXT_PUBLIC_SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET;
+  const getUrlFromId = (ref) => {
+    const [_file, id, extension] = ref.split('-');
+    return `https://cdn.sanity.io/files/${NEXT_PUBLIC_SANITY_PROJECT_ID}/${NEXT_PUBLIC_SANITY_DATASET}/${id}.${extension}`;
+  };
   return (
     <DrawerProvider>
       <header sx={styles.header} className={className} id="header">
         <Container sx={styles.container}>
           <Logo src={LogoWhite} />
-
           <Flex as="nav" sx={styles.nav}>
             {nav === true &&
               menuItems.map(({ path, label }, i) => (
@@ -37,46 +43,45 @@ export default function Header({ className, nav, user }) {
                 </Link>
               ))}
           </Flex>
+          {author && (
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                logEvent({
+                  action: 'Contact me',
+                  category: 'clicks',
+                  label: 'click_contact',
+                });
+                window.location.href = author[0].social.linkedin;
+              }}
+              className="donate__btn"
+              variant="secondary"
+              aria-label="Contact"
+            >
+              Contact
+            </Button>
+          )}
+          {author && (
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                logEvent({
+                  action: 'CV_Header',
+                  category: 'clicks',
+                  label: 'click_cv',
+                });
+                window.location.href = getUrlFromId(author[0].cv.asset._ref);
+              }}
+              className="donate__btn"
+              variant="secondary"
+              aria-label="CV"
+            >
+              <Icon icon="feather:download" /> CV{' '}
+              <span style={styles.pdf}> (PDF)</span>
+            </Button>
+          )}
 
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              logEvent({
-                action: 'Contact me',
-                category: 'clicks',
-                label: 'click_contact',
-              });
-              window.location.href = user
-                ? 'https://www.linkedin.com/in/thanchila-pirasanthan-663056129/'
-                : 'https://uk.linkedin.com/in/pirasanth-jesugeevegan';
-            }}
-            className="donate__btn"
-            variant="secondary"
-            aria-label="Contact"
-          >
-            Contact
-          </Button>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              logEvent({
-                action: 'CV_Header',
-                category: 'clicks',
-                label: 'click_cv',
-              });
-              window.location.href = user
-                ? 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/thanchila.somanathan%40fdmgroup.com%20-%20V0.2.pdf?alt=media&token=97ce9205-e1a3-4f39-8d7b-098416a2b8eb'
-                : 'https://firebasestorage.googleapis.com/v0/b/pirasanth.appspot.com/o/Pirasanthan_Jesugeevegan_CV.pdf?alt=media&token=bc308318-ae6b-46c1-9f78-b30950d12ebb';
-            }}
-            className="donate__btn"
-            variant="secondary"
-            aria-label="CV"
-          >
-            <Icon icon="feather:download" /> CV{' '}
-            <span style={styles.pdf}> (PDF)</span>
-          </Button>
-
-          <MobileDrawer />
+          <MobileDrawer author={author} />
         </Container>
       </header>
     </DrawerProvider>

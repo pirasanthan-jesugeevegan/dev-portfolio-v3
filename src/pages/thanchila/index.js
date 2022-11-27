@@ -13,10 +13,10 @@ import { sanityClient } from '../../../sanity';
 import { readTime } from '../../utils/read-time';
 
 export default function Than({
-  skills,
   blogs,
+  author,
   description = `Sharing my tips and tricks`,
-  author = 'Thanchila Pirasanthan',
+  authors = 'Thanchila Pirasanthan',
   image = 'https://www.pirasanth.com/_next/static/images/ThanProfile-060bec4e6588edbbd53761dfeeea5167.png',
   title = 'Blog | Thanchila',
   url = 'https://www.pirasanth.com/thanchila',
@@ -30,30 +30,31 @@ export default function Than({
     }
   };
   IsPost(blogs);
-
+  blogs = blogs.filter((blog) => {
+    return blog.author.name === 'Thanchila';
+  });
   return (
     <ThemeProvider theme={theme}>
       <StickyProvider>
-        <Layout user="thanchila">
+        <Layout author={author} user="Thanchila">
           <SEO
             description={description}
-            author={author}
+            author={authors}
             image={image}
             title={title}
             url={url}
           />
           <Hero user="thanchila" />
-          <About user="thanchila" />
-          <Skills skills={skills} key={skills.title} user="thanchila" />
+          <About author={author[1]} />
+          <Skills skills={author[1].skills} key={author[1].skills} />
           {IsPost(blogs) && <Blog blogs={blogs} key={blogs._id} />}
         </Layout>
       </StickyProvider>
     </ThemeProvider>
   );
 }
-
 export const getServerSideProps = async () => {
-  const postQuery = `*[_type == "post" && author._ref in *[_type=="author" && name == "Thanchila" ]._id ]{
+  const postQuery = `*[_type == "post"]{
     _id,
     title,
     likes,
@@ -71,8 +72,7 @@ export const getServerSideProps = async () => {
   slug,
   mainImage,
   description
-    }
-`;
+  }`;
 
   const skillQuery = `
   *[_type == "skills"] | order(order asc){
@@ -83,14 +83,33 @@ export const getServerSideProps = async () => {
 }
   `;
 
+  const authorQuery = `
+  *[_type == "author"]
+  `;
+
+  const projectQuery = `
+*[_type == "projects"] | order(order asc){
+  order,
+  tag,
+  card,
+  icons,
+  image,
+  name,
+  display
+}
+  `;
+
   const blogs = await sanityClient.fetch(postQuery);
   const skills = await sanityClient.fetch(skillQuery);
-
-  if (!blogs.length && skills.length) {
+  const projects = await sanityClient.fetch(projectQuery);
+  const author = await sanityClient.fetch(authorQuery);
+  if (!blogs.length && skills.length && projects.length) {
     return {
       props: {
         blogs: [],
         skills: [],
+        projects: [],
+        author: [],
       },
     };
   } else {
@@ -98,6 +117,8 @@ export const getServerSideProps = async () => {
       props: {
         blogs,
         skills,
+        projects,
+        author,
       },
     };
   }

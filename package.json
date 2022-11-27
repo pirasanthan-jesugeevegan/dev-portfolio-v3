@@ -8,11 +8,6 @@
     "export": "next export",
     "postbuild": "next-sitemap"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not op_mini all"
-  ],
   "dependencies": {
     "@mattjennings/react-modal": "^1.0.3",
     "@sanity/block-content-to-react": "^3.0.0",

@@ -12,7 +12,7 @@ import { readTime } from '../../utils/read-time';
 import { getPostbyCat } from '../../service/get-post-by-cat';
 import Header from '../../components/header/header';
 
-export default function Post({ post }) {
+export default function Post({ post, author }) {
   const [relatedPost, setRelatedPost] = useState(null);
 
   useEffect(() => {
@@ -28,10 +28,11 @@ export default function Post({ post }) {
           image={urlFor(post.mainImage)}
           url={`https://pirasanth.com/blog/${post.slug.current}`}
         />
-        <Header nav={false} />
+        <Header nav={false} author={author} />
         <main>
           <BlogPost
             data={post}
+            author={author}
             read={readTime(post.body)}
             relatedPost={relatedPost}
             key={post._id}
@@ -64,14 +65,19 @@ export const getServerSideProps = async (pageContext) => {
         'nextPost': *[_type == 'post' && _createdAt > ^._createdAt] | order(_createdAt asc)[0]
     } 
     `;
-  const post = await sanityClient.fetch(query, { pageSlug });
+  const authorQuery = `
+  *[_type == "author"]
+  `;
 
+  const post = await sanityClient.fetch(query, { pageSlug });
+  const author = await sanityClient.fetch(authorQuery);
   if (!post) {
     return { props: null, notFound: true };
   } else {
     return {
       props: {
         post,
+        author,
       },
     };
   }

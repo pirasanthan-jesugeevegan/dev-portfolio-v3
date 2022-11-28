@@ -17,8 +17,9 @@ import { readTime } from '../../utils/read-time';
 
 export default function Blog({
   post,
+  author,
   description = `Sharing my tips and tricks`,
-  author = 'Pirasanthan Jesugeevegan',
+  authors = 'Pirasanthan Jesugeevegan',
   image = 'https://www.pirasanth.com/_next/static/images/Profile-74b29cdf06ceec5b19d6e084caffc9e7.png',
   title = 'Blog | Pirasanth',
 }) {
@@ -31,7 +32,7 @@ export default function Blog({
         <Head>
           <title>{title}</title>
           <meta name="description" content={description}></meta>
-          <meta name="author" content={author}></meta>
+          <meta name="author" content={authors}></meta>
           <meta name="title" content={title}></meta>
           <meta name="image" content={image}></meta>
 
@@ -83,7 +84,7 @@ export default function Blog({
               <span style={styles.pdf}> (PDF)</span>
             </Button>
 
-            <MobileDrawer />
+            <MobileDrawer author={author} />
           </Container>
         </header>
         <main>
@@ -115,7 +116,7 @@ export default function Blog({
             ))}
           </Grid>
         </main>
-        <Footer />
+        <Footer author={author} />
       </DrawerProvider>
     </ThemeProvider>
   );
@@ -244,14 +245,19 @@ export const getServerSideProps = async (pageContext) => {
         keyword
     }
     `;
-  const post = await sanityClient.fetch(query, { pageSlug });
+  const authorQuery = `
+  *[_type == "author"]
+  `;
 
+  const post = await sanityClient.fetch(query, { pageSlug });
+  const author = await sanityClient.fetch(authorQuery);
   if (!post) {
     return { props: null, notFound: true };
   } else {
     return {
       props: {
         post,
+        author,
       },
     };
   }

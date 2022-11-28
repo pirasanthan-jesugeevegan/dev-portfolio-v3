@@ -12,7 +12,7 @@ import BlogNextPrevious from './blog-next-previous';
 import { serializers } from '../utils/serializers';
 import { updatePost } from '../service/update-post';
 
-export default function BlogPost({ data, read, relatedPost }) {
+export default function BlogPost({ data, read, relatedPost, author }) {
   const [postId] = useState(data._id);
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
@@ -200,7 +200,7 @@ export default function BlogPost({ data, read, relatedPost }) {
           </Box>
         </Flex>
       </Grid>
-      <Footer />
+      <Footer author={author} />
     </section>
   );
 }

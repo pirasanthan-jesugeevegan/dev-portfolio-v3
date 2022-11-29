@@ -2,6 +2,7 @@
 import { jsx, Box, Container, Text, Image } from 'theme-ui';
 import { Link } from 'react-scroll';
 import logo from '../../assets/logo.svg';
+import tpLogo from '../../assets/tp-logo.svg';
 import { Icon } from '@iconify/react';
 
 export default function Footer({ author }) {
@@ -23,11 +24,12 @@ export default function Footer({ author }) {
     author[0].name === 'PJ'
       ? 'Pirasanthan Jesugeevegan'
       : 'Thanchila Pirasanthan';
+  const logoImg = author[0].name === 'PJ' ? logo : tpLogo;
   return (
     <footer sx={styles.footer}>
       <Container sx={styles.footer.container}>
         <Box sx={styles.footer.footerTopArea}>
-          <Image sx={{ width: '40px' }} src={logo} />
+          <Image sx={{ width: '40px' }} src={logoImg} />
           <Text sx={{ alignSelf: 'center', paddingLeft: '10px' }}>
             ©2021 <span sx={styles.footer.copyright}>{fullName}</span>
           </Text>

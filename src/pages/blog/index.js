@@ -8,6 +8,7 @@ import theme from 'theme';
 import Logo from 'components/logo';
 import BlogCard from 'components/blog-card';
 import LogoWhite from 'assets/logo.svg';
+import tpLogo from 'assets/tp-logo.svg';
 import { ThemeProvider } from 'theme-ui';
 import { DrawerProvider } from '../../contexts/drawer/drawer.provider';
 import MobileDrawer from '../../components/header/mobile-drawer';
@@ -23,6 +24,7 @@ export default function Blog({
   image = 'https://www.pirasanth.com/_next/static/images/Profile-74b29cdf06ceec5b19d6e084caffc9e7.png',
   title = 'Blog | Pirasanth',
 }) {
+  const logoImg = author[0].name === 'PJ' ? LogoWhite : tpLogo;
   for (const item of post) {
     Object.assign(item, readTime(item.body));
   }
@@ -56,7 +58,7 @@ export default function Blog({
         </Head>
         <header sx={styles.header} id="header" nav={true}>
           <Container sx={styles.container}>
-            <Logo src={LogoWhite} />
+            <Logo src={logoImg} />
             <Flex as="nav" sx={styles.nav}></Flex>
             <Button
               onClick={(e) => {

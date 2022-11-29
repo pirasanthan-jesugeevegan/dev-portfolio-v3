@@ -7,8 +7,10 @@ import { Link } from 'react-scroll';
 import { Icon } from '@iconify/react';
 import menuItems from './header.data';
 import logo from '../../assets/logo.svg';
+import tpLogo from 'assets/tp-logo.svg';
 
 const MobileDrawer = ({ author }) => {
+  const logoImg = author[0].name === 'PJ' ? logo : tpLogo;
   const social = [
     {
       path: author[0].social.linkedin,
@@ -55,7 +57,7 @@ const MobileDrawer = ({ author }) => {
         <Box sx={styles.content}>
           <Image
             sx={{ width: '80px', alignSelf: 'center', paddingBottom: '20px' }}
-            src={logo}
+            src={logoImg}
           />
           <Box sx={styles.menu}>
             {menuItems.map(({ path, label }, i) => (

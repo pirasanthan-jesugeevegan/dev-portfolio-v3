@@ -4,6 +4,7 @@ import { keyframes } from '@emotion/core';
 import { Link } from 'react-scroll';
 import Logo from 'components/logo';
 import LogoWhite from 'assets/logo.svg';
+import tpLogo from 'assets/tp-logo.svg';
 import { DrawerProvider } from '../../contexts/drawer/drawer.provider';
 import MobileDrawer from './mobile-drawer';
 import menuItems from './header.data';
@@ -14,6 +15,7 @@ export default function Header({ className, nav, author }) {
   if (author[0].name === 'Thanchila') {
     menuItems = menuItems.filter((el) => el.path != 'portfolio');
   }
+  const logoImg = author[0].name === 'PJ' ? LogoWhite : tpLogo;
   const NEXT_PUBLIC_SANITY_PROJECT_ID =
     process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
   const NEXT_PUBLIC_SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -25,7 +27,7 @@ export default function Header({ className, nav, author }) {
     <DrawerProvider>
       <header sx={styles.header} className={className} id="header">
         <Container sx={styles.container}>
-          <Logo src={LogoWhite} />
+          <Logo src={logoImg} />
           <Flex as="nav" sx={styles.nav}>
             {nav === true &&
               menuItems.map(({ path, label }, i) => (

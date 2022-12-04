@@ -132,11 +132,14 @@ export default function BlogPost({ data, read, relatedPost, author }) {
                 {data.description}
               </Text>
               <Flex sx={{ marginTop: '-10px' }}>
-                <Avatar
-                  sx={{ minWidth: 'auto' }}
-                  src={urlFor(data.author.image)}
-                  alt={`Published by ${data.author.name}`}
-                />
+                <Links path={data.author.name === 'PJ' ? '/' : '/thanchila'}>
+                  <Avatar
+                    sx={{ minWidth: 'auto' }}
+                    src={urlFor(data.author.image)}
+                    alt={`Published by ${data.author.name}`}
+                  />
+                </Links>
+
                 <Text
                   as="p"
                   variant="primaryText"

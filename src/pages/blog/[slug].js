@@ -13,6 +13,7 @@ import { getPostbyCat } from '../../service/get-post-by-cat';
 import Header from '../../components/header/header';
 
 export default function Post({ post, author }) {
+  author = author.filter((auth) => auth.name === post.author.name);
   const [relatedPost, setRelatedPost] = useState(null);
 
   useEffect(() => {

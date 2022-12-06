@@ -54,7 +54,7 @@ export default function Than({
   );
 }
 export const getServerSideProps = async () => {
-  const postQuery = `*[_type == "post"]{
+  const postQuery = `*[_type == "post" && dateTime(now()) >= dateTime(publishedAt)] {
     _id,
     title,
     likes,

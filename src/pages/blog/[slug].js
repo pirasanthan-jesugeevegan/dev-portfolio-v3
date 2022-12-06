@@ -45,7 +45,8 @@ export default function Post({ post, author }) {
 }
 export const getServerSideProps = async (pageContext) => {
   const pageSlug = pageContext.query.slug;
-  const query = `*[_type == "post" && slug.current == $pageSlug] [0] {
+
+  const query = `*[_type == "post" && slug.current == $pageSlug && dateTime(now()) >= dateTime(publishedAt)] [0] {
         _id,
         _createdAt,
         title,

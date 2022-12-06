@@ -17,6 +17,8 @@ export default function BlogPost({ data, read, relatedPost, author }) {
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
 
+  relatedPost = relatedPost?.filter((post) => post.title != data.title);
+
   const onBtnClick = () => {
     if (cookies.access_token === undefined || cookies.access_token !== postId) {
       setCookie('access_token', postId, {
@@ -56,7 +58,7 @@ export default function BlogPost({ data, read, relatedPost, author }) {
               width: '-webkit-fill-available',
               paddingTop: '100px',
               minWidth: '-1px',
-              px: [5, 5, 5, 5, 11, '25%'],
+              px: [5, 5, 5, 5, 11, '20%'],
             }}
             alt={data.title}
           />
@@ -67,7 +69,7 @@ export default function BlogPost({ data, read, relatedPost, author }) {
               width: '-webkit-fill-available',
               paddingTop: '100px',
               minWidth: '-1px',
-              px: [5, 5, 5, 5, 11, '25%'],
+              px: [5, 5, 5, 5, 11, '20%'],
             }}
           />
         )}
@@ -78,7 +80,7 @@ export default function BlogPost({ data, read, relatedPost, author }) {
             bg="primary"
             sx={{
               flex: '1 2 auto',
-              width: '-webkit-fill-available',
+              width: '50%',
               display: ['none', 'none', 'block'],
             }}
           ></Box>
@@ -198,11 +200,11 @@ export default function BlogPost({ data, read, relatedPost, author }) {
             bg="muted"
             sx={{
               flex: '1 2 auto',
-              width: '-webkit-fill-available',
+              width: '50%',
               display: ['none', 'none', 'block'],
             }}
           >
-            <BlogSidePanel link={data} posts={relatedPost} />
+            {relatedPost && <BlogSidePanel link={data} posts={relatedPost} />}
           </Box>
         </Flex>
       </Grid>

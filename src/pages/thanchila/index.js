@@ -12,15 +12,7 @@ import { ThemeProvider } from 'theme-ui';
 import { sanityClient } from '../../../sanity';
 import { readTime } from '../../utils/read-time';
 
-export default function Than({
-  blogs,
-  author,
-  description = `Sharing my tips and tricks`,
-  authors = 'Thanchila Pirasanthan',
-  image = 'https://www.pirasanth.com/_next/static/images/ThanProfile-060bec4e6588edbbd53761dfeeea5167.png',
-  title = 'Blog | Thanchila',
-  url = 'https://www.pirasanth.com/thanchila',
-}) {
+export default function Than({ blogs, author }) {
   for (const blog of blogs) {
     Object.assign(blog, readTime(blog.body));
   }
@@ -38,11 +30,11 @@ export default function Than({
       <StickyProvider>
         <Layout author={author} user="Thanchila">
           <SEO
-            description={description}
-            author={authors}
-            image={image}
-            title={title}
-            url={url}
+            description="Hi! I'm Thanchila,I'm a QA Engineer. Nice to meet you! Please take a look around"
+            author="Thanchila Pirasanthan"
+            image="https://cdn.sanity.io/images/vsjc2cwt/production/0763ddabdd3f23cdc320daf6d4009dbb3d79a0cb-400x400.png"
+            title="Portfolio | Thanchila"
+            url="https://www.pirasanth.com/thanchila"
           />
           <Hero user="thanchila" />
           <About author={author[1]} />

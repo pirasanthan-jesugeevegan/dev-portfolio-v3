@@ -24,11 +24,17 @@ export default function BlogCard({ data }) {
                 sx={styles.image}
                 alt={data.title}
               />
-              <Box sx={{ display: 'inline-flex', padding: '15px 30px' }}>
+              <Box
+                sx={{
+                  display: 'inline-flex',
+                  padding: '15px 30px',
+                  flexWrap: 'wrap',
+                }}
+              >
                 {data?.categories?.map((item) => (
                   <Text
                     sx={{
-                      marginRight: '10px',
+                      margin: '3px 3px 3px 0px',
                       padding: '2px 6px',
                       color: '#323444',
                       backgroundColor: '#ffc35b',

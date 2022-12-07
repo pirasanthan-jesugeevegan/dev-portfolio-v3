@@ -1,5 +1,17 @@
 /** @jsx jsx */
-import { jsx, Container, Flex, Button, Grid, Box } from 'theme-ui';
+import React, { useState, useEffect } from 'react';
+import {
+  jsx,
+  Container,
+  Flex,
+  Button,
+  Grid,
+  Box,
+  Image,
+  Text,
+  Badge,
+  Close,
+} from 'theme-ui';
 import { Link as Links } from '../../components/link';
 import { keyframes } from '@emotion/core';
 import Footer from '../../components/footer/footer';
@@ -15,6 +27,7 @@ import MobileDrawer from '../../components/header/mobile-drawer';
 import { sanityClient } from '../../../sanity';
 import { Icon } from '@iconify/react';
 import { readTime } from '../../utils/read-time';
+import { urlFor } from '../../../sanity';
 
 export default function Blog({
   post,
@@ -28,6 +41,15 @@ export default function Blog({
   for (const item of post) {
     Object.assign(item, readTime(item.body));
   }
+  const [searchTerm, setSearchTerm] = useState('');
+
+  post = post.filter((p) => {
+    if (searchTerm.length > 0) {
+      return p.author.name === searchTerm;
+    }
+    return p;
+  });
+  useEffect(() => {}, []);
   return (
     <ThemeProvider theme={theme}>
       <DrawerProvider>
@@ -107,16 +129,165 @@ export default function Blog({
                 <span style={{ fontSize: '1.2rem' }}>Back to Home page</span>
               </Links>
             </Box>
+            <Box sx={{ color: '#ffc35b' }}>
+              <Box sx={{ display: ['block', 'none', 'none', 'none'] }}>
+                <Box sx={{ position: 'sticky', top: '30px' }}>
+                  <Box
+                    sx={{
+                      margin: '10px',
+                      backgroundColor: '#252734',
+                      borderRadius: '5px',
+                      padding: '10px',
+                      marginTop: '30px',
+                    }}
+                  >
+                    <Text sx={{ fontSize: 'large', textAlign: 'center' }}>
+                      Filter by Author
+                    </Text>
+                    <Box>
+                      {searchTerm && (
+                        <Badge
+                          sx={{
+                            margin: '10px',
+                            alignItems: 'center',
+                            display: 'inline-flex',
+                          }}
+                        >
+                          {searchTerm}
+                          <Close onClick={() => setSearchTerm('')} />
+                        </Badge>
+                      )}
+
+                      {author.map((author, i) => (
+                        <Box
+                          p={2}
+                          key={i}
+                          bg="primary"
+                          color="white"
+                          sx={{
+                            display: 'flex',
+                            margin: '10px 10px',
+                            borderRadius: '5px',
+                            '&:hover': {
+                              cursor: 'pointer',
+                            },
+                          }}
+                          onClick={() => setSearchTerm(author.name)}
+                        >
+                          <Image
+                            src={urlFor(author.image.asset._ref)}
+                            sx={{
+                              width: '20%',
+                              borderRadius: '100%',
+                            }}
+                          />
+                          <Text
+                            sx={{
+                              paddingBottom: '10px',
+                              alignSelf: 'center',
+                              padding: '10px',
+                            }}
+                          >
+                            {author.name}
+                          </Text>
+                          <Flex
+                            sx={{
+                              fontSize: 'small',
+                              justifyContent: 'space-between',
+                            }}
+                          ></Flex>
+                        </Box>
+                      ))}
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           </Grid>
-          <Grid sx={styles.grid}>
-            {post.map((blog) => (
-              <BlogCard
-                data={blog}
-                key={blog._id}
-                sx={{ marginBottom: '50px' }}
-              />
-            ))}
+          <Grid gap={2} columns={[0, '3fr 1fr']}>
+            <Box sx={styles.grid1}>
+              {post.map((blog) => (
+                <BlogCard
+                  data={blog}
+                  key={blog._id}
+                  sx={{ marginBottom: '50px' }}
+                />
+              ))}
+            </Box>
+            <Box sx={{ display: ['none', 'none', 'none', 'block'] }}>
+              <Box sx={{ position: 'sticky', top: '30px' }}>
+                <Box
+                  sx={{
+                    margin: '10px',
+                    backgroundColor: '#252734',
+                    borderRadius: '5px',
+                    padding: '10px',
+                    marginTop: '30px',
+                  }}
+                >
+                  <Text sx={{ fontSize: 'large', textAlign: 'center' }}>
+                    Filter by Author
+                  </Text>
+                  <Box>
+                    {searchTerm && (
+                      <Badge
+                        sx={{
+                          margin: '10px',
+                          alignItems: 'center',
+                          display: 'inline-flex',
+                        }}
+                      >
+                        {searchTerm}
+                        <Close onClick={() => setSearchTerm('')} />
+                      </Badge>
+                    )}
+
+                    {author.map((author, i) => (
+                      <Box
+                        p={2}
+                        key={i}
+                        bg="primary"
+                        color="white"
+                        sx={{
+                          display: 'flex',
+                          margin: '10px 10px',
+                          borderRadius: '5px',
+                          '&:hover': {
+                            cursor: 'pointer',
+                          },
+                        }}
+                        onClick={() => setSearchTerm(author.name)}
+                      >
+                        <Image
+                          src={urlFor(author.image.asset._ref)}
+                          sx={{
+                            width: '30%',
+                            borderRadius: '100%',
+                          }}
+                        />
+                        <Text
+                          sx={{
+                            paddingBottom: '10px',
+                            alignSelf: 'center',
+                            padding: '10px',
+                          }}
+                        >
+                          {author.name}
+                        </Text>
+                        <Flex
+                          sx={{
+                            fontSize: 'small',
+                            justifyContent: 'space-between',
+                          }}
+                        ></Flex>
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           </Grid>
+          <Grid sx={styles.grid}></Grid>
         </main>
         <Footer author={author} />
       </DrawerProvider>
@@ -136,6 +307,21 @@ const positionAnim = keyframes`
 `;
 
 const styles = {
+  grid1: {
+    display: 'grid',
+    gridTemplateColumns: [
+      'repeat(1,1fr)',
+      null,
+      'repeat(2,1fr)',
+      null,
+      'repeat(3,1fr)',
+    ],
+    paddingTop: ['80px'],
+    gridGap: ['37px 0', null, '24px 24px', null, '24px 24px', null, null, null],
+    width: ['100%', '80%', '100%'],
+    mx: 'auto',
+    px: ['10px', '10px', '20px', '20px', '20px', '50px'],
+  },
   grid: {
     mt: [
       '-55px',

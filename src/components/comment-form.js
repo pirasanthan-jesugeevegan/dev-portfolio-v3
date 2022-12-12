@@ -17,9 +17,15 @@ export default function CommentForm({ post }) {
     })
       .then(() => {
         setSubmitted(true);
+        fetch('/api/sendgrid', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then((res) => console.log(res));
       })
       .catch((error) => {
-        console.log(error);
         setSubmitted(false);
       });
     styles.forms['display'] = 'none';

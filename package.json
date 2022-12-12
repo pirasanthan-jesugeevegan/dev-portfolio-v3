@@ -12,6 +12,7 @@
     "@mattjennings/react-modal": "^1.0.3",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^3.4.1",
+    "@sendgrid/mail": "^7.7.0",
     "@uit/glitch-image": "^0.0.11",
     "dotenv": "^8.2.0",
     "framer-motion": "^2.7.5",

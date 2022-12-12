@@ -27,4 +27,17 @@ export default {
       to: [{ type: 'post' }],
     },
   ],
+  preview: {
+    select: {
+      title: 'name',
+      date: 'approved',
+    },
+    prepare(selection) {
+      const { title, date } = selection;
+      return {
+        title: title,
+        subtitle: `Approved:${date}`,
+      };
+    },
+  },
 };

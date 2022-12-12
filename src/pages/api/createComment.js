@@ -19,6 +19,7 @@ export default async function createComment(req, res) {
       name,
       email,
       comment,
+      approved: false,
     });
   } catch (err) {
     return res.status(500).json({ message: `Couldn't submit comment`, err });

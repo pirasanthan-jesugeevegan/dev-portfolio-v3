@@ -139,6 +139,9 @@ export default {
       ],
     },
   ],
+  initialValue: {
+    isHighlighted: false,
+  },
   preview: {
     select: {
       title: 'name',

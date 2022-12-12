@@ -108,9 +108,23 @@ export default function BlogCard({ data }) {
                   />
                   <Text
                     className="package__name"
-                    sx={{ alignSelf: 'center', paddingLeft: '5px' }}
+                    sx={{ alignSelf: 'center', padding: '5px' }}
                   >
                     {data?.likes}
+                  </Text>
+                  <Icon
+                    icon="majesticons:comment-2-text-line"
+                    color="#ffc35b"
+                    style={{
+                      alignSelf: 'center',
+                      fontSize: 'large',
+                    }}
+                  />
+                  <Text
+                    className="package__name"
+                    sx={{ alignSelf: 'center', padding: '5px' }}
+                  >
+                    {data?.comments?.length}
                   </Text>
                 </Flex>
               </Box>

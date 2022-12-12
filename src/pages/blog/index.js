@@ -314,10 +314,10 @@ const styles = {
       null,
       'repeat(2,1fr)',
       null,
-      'repeat(3,1fr)',
+      'repeat(2,1fr)',
     ],
     paddingTop: ['80px'],
-    gridGap: ['37px 0', null, '24px 24px', null, '24px 24px', null, null, null],
+    gridGap: ['37px 0', null, '24px 24px', null, '48px 24px', null, null, null],
     width: ['100%', '80%', '100%'],
     mx: 'auto',
     px: ['10px', '10px', '20px', '20px', '20px', '50px'],
@@ -423,6 +423,11 @@ export const getServerSideProps = async (pageContext) => {
             name,
             image
         },
+        'comments': *[
+          _type == "comment" &&
+          post._ref == ^._id &&
+          approved == true
+        ],
         categories[] -> {
           title
   },

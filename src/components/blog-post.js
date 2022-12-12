@@ -11,12 +11,14 @@ import BlogSidePanel from './blog-side-panel';
 import BlogNextPrevious from './blog-next-previous';
 import { serializers } from '../utils/serializers';
 import { updatePost } from '../service/update-post';
+import CommentForm from '../components/comment-form';
+import Comments from '../components/comments';
 
 export default function BlogPost({ data, read, relatedPost, author }) {
   const [postId] = useState(data._id);
   const [count, setCount] = useState(data.likes);
   const [cookies, setCookie] = useCookies(['access_token']);
-
+  const [commentClick, setCommentClick] = useState(false);
   relatedPost = relatedPost?.filter((post) => post.title != data.title);
 
   const onBtnClick = () => {
@@ -174,24 +176,52 @@ export default function BlogPost({ data, read, relatedPost, author }) {
                 bg="primary"
                 color="white"
                 sx={{
+                  display: ['-webkit-inline-box', 'flex'],
                   flex: '1 1 auto',
                   fontSize: 'x-large',
-                  '&:hover': {
-                    color: '#ffc35b',
-                  },
                 }}
               >
-                <Icon
-                  icon="ant-design:like-outlined"
-                  color={cookies.access_token === 'true' ? '#ffc35b' : null}
-                  onClick={onBtnClick}
-                />{' '}
-                {count}
+                <Box
+                  sx={{
+                    padding: ['5px', '10px'],
+                    '&:hover': {
+                      color: '#ffc35b',
+                    },
+                  }}
+                >
+                  <Icon
+                    icon="ant-design:like-outlined"
+                    color={cookies.access_token === 'true' ? '#ffc35b' : null}
+                    onClick={onBtnClick}
+                  />{' '}
+                  {count}{' '}
+                </Box>
+                <Box
+                  sx={{
+                    padding: ['5px', '10px'],
+                    '&:hover': {
+                      color: '#ffc35b',
+                    },
+                  }}
+                >
+                  <Icon
+                    icon="majesticons:comment-2-text-line"
+                    color={commentClick === true ? '#ffc35b' : null}
+                  />{' '}
+                  {data.comments.length}{' '}
+                </Box>
               </Box>
-              <Box sx={{ display: 'flex' }} p={2} bg="muted">
+
+              <Box
+                sx={{ display: 'flex', alignItems: 'center' }}
+                p={2}
+                bg="muted"
+              >
                 <ShareLogo data={data} />
               </Box>
             </Flex>
+            <CommentForm post={data} />
+            {data.comments.length > 0 && <Comments comments={data.comments} />}
             <BlogNextPrevious data={data} />
           </Box>
 

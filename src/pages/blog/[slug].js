@@ -57,7 +57,12 @@ export const getServerSideProps = async (pageContext) => {
         },
         categories[] -> {
           title
-  },
+        },
+        'comments': *[
+          _type == "comment" &&
+          post._ref == ^._id &&
+          approved == true
+        ],
         description,
         mainImage,
         slug,

@@ -52,6 +52,11 @@ export const getServerSideProps = async () => {
     body,
     publish,
     publishedAt,
+    'comments': *[
+          _type == "comment" &&
+          post._ref == ^._id &&
+          approved == true
+        ],
     categories[] -> {
             title
     },

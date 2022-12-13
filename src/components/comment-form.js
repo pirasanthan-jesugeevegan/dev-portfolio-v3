@@ -106,7 +106,7 @@ const styles = {
   error: { color: '#bf1111', margin: '10px' },
   forms: {
     padding: '10px',
-    margin: '10px',
+    margin: [null, '10px'],
     backgroundColor: '#252734',
     borderRadius: '5px',
     label: {

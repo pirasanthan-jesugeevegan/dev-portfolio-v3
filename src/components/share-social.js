@@ -63,7 +63,12 @@ export default function ShareLogo({ data }) {
   );
 }
 const styles = {
-  icons_title: { paddingRight: '10px', margin: '2px', fontSize: 'large' },
+  icons_title: {
+    paddingRight: '10px',
+    margin: '2px',
+    fontSize: 'large',
+    display: ['none', 'block'],
+  },
   icons: {
     margin: '3px',
     fontSize: 'x-large',

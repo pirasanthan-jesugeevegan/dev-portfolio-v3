@@ -79,6 +79,9 @@ export default function blogSidePanel({ link, posts }) {
                   sx={{
                     fontSize: 'small',
                     justifyContent: 'space-between',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
                   }}
                 >
                   <Box sx={{ color: '#ffc35b', paddingRight: '10px' }}>

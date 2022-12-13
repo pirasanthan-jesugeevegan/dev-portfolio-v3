@@ -152,11 +152,12 @@ const styles = {
   title: {
     fontWeight: '700',
     fontSize: '1.5rem',
-    padding: '15px 30px',
+    padding: '10px 30px',
     textAlign: 'left',
+    lineHeight: 'initial',
   },
   des: {
-    padding: '15px 30px 70px',
+    padding: '15px 30px 80px',
     textAlign: 'left',
   },
   pricingBox: {

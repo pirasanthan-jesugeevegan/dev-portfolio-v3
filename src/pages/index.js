@@ -45,7 +45,7 @@ export default function IndexPage({ author, blogs, skills, projects }) {
 }
 
 export const getServerSideProps = async () => {
-  const postQuery = `*[_type == "post" && dateTime(now()) >= dateTime(publishedAt)] {
+  const postQuery = `*[_type == "post" && publish == true && dateTime(now()) >= dateTime(publishedAt)] {
     _id,
     title,
     likes,

@@ -7,7 +7,7 @@ export default function SiteMap() {
 
 export const getServerSideProps = async ({ res }) => {
   const baseUrl = `https://pirasanth.com`;
-  const postQuery = `*[_type == "post" && dateTime(now()) >= dateTime(publishedAt)]{
+  const postQuery = `*[_type == "post" && publish == true && dateTime(now()) >= dateTime(publishedAt)]{
     slug,
     }`;
 

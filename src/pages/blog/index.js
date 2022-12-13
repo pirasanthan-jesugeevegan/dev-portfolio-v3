@@ -414,7 +414,7 @@ const styles = {
 
 export const getServerSideProps = async (pageContext) => {
   const pageSlug = pageContext.query;
-  const query = `*[_type == "post" && dateTime(now()) >= dateTime(publishedAt)] {
+  const query = `*[_type == "post" && publish == true && dateTime(now()) >= dateTime(publishedAt)] {
         _id,
         _createdAt,
         title,

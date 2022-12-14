@@ -66,7 +66,10 @@ export default function Blog({
           <meta itemprop="image" content={image}></meta>
 
           {/* <!-- Facebook Meta Tags --> */}
-          <meta property="og:url" content="https://www.pirasanth.com"></meta>
+          <meta
+            property="og:url"
+            content="https://www.pirasanth.com/blog"
+          ></meta>
           <meta property="og:type" content="website"></meta>
           <meta property="og:title" content={title}></meta>
           <meta property="og:description" content={description}></meta>
@@ -318,7 +321,7 @@ const styles = {
     ],
     paddingTop: ['80px'],
     gridGap: ['37px 0', null, '24px 24px', null, '48px 24px', null, null, null],
-    width: ['100%', '80%', '100%'],
+    width: ['100%', '100%', '100%', '100%', '80%', '80%', '70%'],
     mx: 'auto',
     px: ['10px', '10px', '20px', '20px', '20px', '50px'],
   },

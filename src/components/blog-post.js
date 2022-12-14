@@ -230,7 +230,7 @@ export default function BlogPost({ data, read, relatedPost, author }) {
             bg="muted"
             sx={{
               flex: '1 2 auto',
-              width: '50%',
+              width: '70%',
               display: ['none', 'none', 'block'],
             }}
           >

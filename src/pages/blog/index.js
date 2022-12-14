@@ -207,7 +207,7 @@ export default function Blog({
               </Box>
             </Box>
           </Grid>
-          <Grid gap={2} columns={[0, '3fr 1fr']}>
+          <Grid gap={2} columns={[0, 0, 0, '3fr 1fr']}>
             <Box sx={styles.grid1}>
               {post.map((blog) => (
                 <BlogCard
@@ -321,7 +321,7 @@ const styles = {
     ],
     paddingTop: ['80px'],
     gridGap: ['37px 0', null, '24px 24px', null, '48px 24px', null, null, null],
-    width: ['100%', '100%', '100%', '100%', '80%', '80%', '70%'],
+    width: ['100%', '100%', '100%', '100%', '100%', '80%', '80%'],
     mx: 'auto',
     px: ['10px', '10px', '20px', '20px', '20px', '50px'],
   },

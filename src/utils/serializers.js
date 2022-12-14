@@ -76,7 +76,11 @@ export const serializers = {
       <Image
         src={urlFor(asset.node)}
         sx={{
-          width: '-webkit-fill-available',
+          borderRadius: '10px',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          width: '100%',
         }}
         alt={asset?.node?.asset?._ref}
       />

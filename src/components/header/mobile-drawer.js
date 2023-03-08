@@ -10,6 +10,10 @@ import logo from '../../assets/logo.svg';
 import tpLogo from 'assets/tp-logo.svg';
 
 const MobileDrawer = ({ author }) => {
+  let currentPath;
+  if (typeof window !== 'undefined') {
+    currentPath = window.location.pathname;
+  }
   const logoImg = author[0].name === 'PJ' ? logo : tpLogo;
   const social = [
     {
@@ -68,7 +72,11 @@ const MobileDrawer = ({ author }) => {
                 smooth={true}
                 offset={-70}
                 key={i}
-                onClick={() => setCurrentHero()}
+                onClick={() =>
+                  currentPath === '/'
+                    ? setCurrentHero()
+                    : (window.location.href = '/')
+                }
               >
                 {label}
               </Link>

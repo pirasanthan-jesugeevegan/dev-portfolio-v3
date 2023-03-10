@@ -68,6 +68,19 @@ export default {
       type: 'image',
     },
     {
+      name: 'youtube',
+      type: 'object',
+      title: 'YouTube Embed',
+      fields: [
+        {
+          type: 'url',
+          name: 'url',
+          title: 'URL',
+          description: 'Get Embed URL from YouTube video -> Share -> Embed',
+        },
+      ],
+    },
+    {
       type: 'code',
       options: {
         theme: 'solarized_dark',

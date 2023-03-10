@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Text, Avatar, Heading, Grid } from 'theme-ui';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { urlFor } from '../../sanity';
-
+import YoutubeEmbed from '../components/youtube-embed';
 const BlockRenderer = (props) => {
   const { style = 'normal' } = props.node;
 
@@ -61,6 +61,7 @@ const BlockRenderer = (props) => {
 
 export const serializers = {
   types: {
+    youtube: (props) => <YoutubeEmbed url={props.node.url} />,
     authorReference: ({ node }) => <span>{node.author.name}</span>,
     code: (props) => (
       <SyntaxHighlighter

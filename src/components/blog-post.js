@@ -17,25 +17,25 @@ import Comments from '../components/comments';
 export default function BlogPost({ data, read, relatedPost, author }) {
   const [postId] = useState(data._id);
   const [count, setCount] = useState(data.likes);
-  const [cookies, setCookie] = useCookies(['access_token']);
+  const [cookies, setCookie] = useCookies([postId]);
   const [commentClick, setCommentClick] = useState(false);
   relatedPost = relatedPost?.filter((post) => post.title != data.title);
 
   const onBtnClick = () => {
-    if (cookies.access_token === undefined || cookies.access_token !== postId) {
-      setCookie('access_token', postId, {
+    if (cookies?.[postId] === undefined || cookies?.[postId] !== 'true') {
+      setCookie(postId, true, {
         path: '/',
       });
       setCount(count + 1);
     } else {
-      setCookie('access_token', false, {
+      setCookie(postId, false, {
         path: '/',
       });
       setCount(count - 1);
     }
   };
   useEffect(() => {
-    if (cookies.access_token) {
+    if (cookies?.[postId]) {
       const mutations = [
         {
           patch: {
@@ -182,17 +182,43 @@ export default function BlogPost({ data, read, relatedPost, author }) {
                 }}
               >
                 <Box
+                  // sx={ cookies?.[postId] === 'true' ? {
+                  //   padding: ['5px', '10px'],
+                  // } : {
+                  //   padding: ['5px', '10px'],
+                  //   '&:hover': {
+                  //     color: '#ffc35b',
+                  //     cursor: 'not-allowed',
+                  //   },
+                  // }}
                   sx={{
-                    padding: ['5px', '10px'],
-                    '&:hover': {
+                    ...(cookies?.[postId] === 'true' && {
+                      padding: ['5px', '10px'],
                       color: '#ffc35b',
-                    },
+                      '&:hover': {
+                        cursor: 'not-allowed',
+                      },
+                    }),
+                    ...(cookies?.[postId] === undefined && {
+                      padding: ['5px', '10px'],
+                      '&:hover': {
+                        color: '#ffc35b',
+                        cursor: 'pointer',
+                      },
+                    }),
+                    ...(cookies?.[postId] === 'false' && {
+                      padding: ['5px', '10px'],
+                      '&:hover': {
+                        color: '#ffc35b',
+                        cursor: 'pointer',
+                      },
+                    }),
                   }}
+                  onClick={cookies?.[postId] === 'true' ? null : onBtnClick}
                 >
                   <Icon
                     icon="ant-design:like-outlined"
-                    color={cookies.access_token === 'true' ? '#ffc35b' : null}
-                    onClick={onBtnClick}
+                    color={cookies?.[postId] === 'true' ? '#ffc35b' : null}
                   />{' '}
                   {count}{' '}
                 </Box>

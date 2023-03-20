@@ -1,16 +1,11 @@
 /** @jsx jsx */
-import { jsx, Image, Box, Heading } from 'theme-ui';
+import { jsx, Box, Heading } from 'theme-ui';
 import { Icon } from '@iconify/react';
-import K6 from 'assets/icons/k6.svg';
 
-export default function FeatureCard({ src, alt, title }) {
+export default function FeatureCard({ src, title }) {
   return (
     <Box sx={styles.card}>
-      {src === 'K6' ? (
-        <Image src={K6} alt={alt} sx={styles.img} />
-      ) : (
-        <Icon icon={src} sx={styles.img} />
-      )}
+      <Icon icon={src} sx={styles.img} />
       <Box sx={styles.wrapper}>
         <Heading sx={styles.wrapper.title}>{title}</Heading>
       </Box>

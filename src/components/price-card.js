@@ -1,31 +1,11 @@
 import { Box, Card, Flex, Image, Text } from 'theme-ui';
 import { useState } from 'react';
-
+import { Icon } from '@iconify/react';
 import Modal from '../components/modal';
 import CardRibbon from './card-ribbon';
-import Reacts from 'assets/icons/react.svg';
-import Node from 'assets/icons/node.svg';
-import Selenium from 'assets/icons/selenium.svg';
-import Cucumber from 'assets/icons/cucumber.svg';
 import Appium from 'assets/icons/appium.svg';
-import Percy from 'assets/icons/percy.svg';
 import Applitools from 'assets/icons/applitools.svg';
-import Chai from 'assets/icons/chai.svg';
-import Cypress from 'assets/icons/cypress.svg';
-import Heroku from 'assets/icons/heroku.svg';
-import Express from 'assets/icons/express.svg';
-import Webdriver from 'assets/icons/webdriver.svg';
-import Mongo from 'assets/icons/mongodb.svg';
 import Browserstack from 'assets/icons/browserstack.svg';
-import Netlify from 'assets/icons/netifly.svg';
-import Sass from 'assets/icons/sass.svg';
-import Javascript from 'assets/icons/javascript.svg';
-import Docker from 'assets/icons/docker.svg';
-import Grafana from 'assets/icons/grafana.svg';
-import Npm from 'assets/icons/npm.svg';
-import Influxdb from 'assets/icons/influxdb.svg';
-import Jenkins from 'assets/icons/jenkins.svg';
-import K6 from 'assets/icons/k6.svg';
 import { urlFor } from '../../sanity';
 import { logEvent } from '../analytics/index';
 
@@ -35,50 +15,8 @@ export default function PriceCard({ data }) {
 
   data.icons.forEach(function (rank) {
     switch (rank) {
-      case 'react':
-        newArray.push(Reacts);
-        break;
-      case 'chai':
-        newArray.push(Chai);
-        break;
-      case 'cucumber':
-        newArray.push(Cucumber);
-        break;
-      case 'cypress':
-        newArray.push(Cypress);
-        break;
-      case 'heroku':
-        newArray.push(Heroku);
-        break;
-      case 'node':
-        newArray.push(Node);
-        break;
-      case 'express':
-        newArray.push(Express);
-        break;
-      case 'netlify':
-        newArray.push(Netlify);
-        break;
-      case 'sass':
-        newArray.push(Sass);
-        break;
-      case 'javascript':
-        newArray.push(Javascript);
-        break;
-      case 'mongodb':
-        newArray.push(Mongo);
-        break;
       case 'appium':
         newArray.push(Appium);
-        break;
-      case 'webdriver':
-        newArray.push(Webdriver);
-        break;
-      case 'selenium':
-        newArray.push(Selenium);
-        break;
-      case 'percy':
-        newArray.push(Percy);
         break;
       case 'applitools':
         newArray.push(Applitools);
@@ -86,25 +24,11 @@ export default function PriceCard({ data }) {
       case 'browserstack':
         newArray.push(Browserstack);
         break;
-      case 'docker':
-        newArray.push(Docker);
-        break;
-      case 'grafana':
-        newArray.push(Grafana);
-        break;
-      case 'npm':
-        newArray.push(Npm);
-        break;
-      case 'influxdb':
-        newArray.push(Influxdb);
-        break;
-      case 'k6':
-        newArray.push(K6);
-        break;
-        case 'jenkins':
-          newArray.push(Jenkins);
+      default:
+        newArray.push(rank);
     }
   });
+
   return (
     <Card sx={styles.pricingBox}>
       <Box
@@ -130,9 +54,26 @@ export default function PriceCard({ data }) {
             <Text className="package__name" sx={styles.heading}>
               {data.name}
             </Text>
-            {newArray.map((icon, i) => (
-              <Image src={icon} key={i} sx={styles.icons} />
-            ))}
+            {newArray.map((icon, i) =>
+              icon.includes('data') ? (
+                <Image src={icon} key={i} sx={styles.icons} />
+              ) : (
+                <Icon
+                  icon={icon}
+                  key={i}
+                  style={{
+                    color: '#FFC35B',
+                    boxSizing: 'border-box',
+                    margin: '0',
+                    minWidth: '0',
+                    maxWidth: '100%',
+                    height: 'auto',
+                    width: '10%',
+                    margin: '10px',
+                  }}
+                />
+              )
+            )}
           </Card>
         </Flex>
       </Box>

@@ -1,7 +1,10 @@
-import { Box, Flex, Image, Text, Avatar, Heading, Grid } from 'theme-ui';
+import { Image, Text, Heading } from 'theme-ui';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import { zTouch } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { CopyBlock, atomOneLight } from 'react-code-blocks';
 import { urlFor } from '../../sanity';
 import YoutubeEmbed from '../components/youtube-embed';
+
 const BlockRenderer = (props) => {
   const { style = 'normal' } = props.node;
 
@@ -64,13 +67,22 @@ export const serializers = {
     youtube: (props) => <YoutubeEmbed url={props.node.url} />,
     authorReference: ({ node }) => <span>{node.author.name}</span>,
     code: (props) => (
-      <SyntaxHighlighter
-        language={props.node.language || 'gherkin'}
-        customStyle={{ padding: '1rem', fontSize: '14px', borderRadius: '5px' }}
-        wrapLines="false"
-      >
-        {props.node.code}
-      </SyntaxHighlighter>
+      <CopyBlock
+        text={props.node.code}
+        language={props.node.language}
+        wrapLines
+        theme={atomOneLight}
+        codeBlock
+      />
+      // <SyntaxHighlighter
+      //   language={props.node.language || 'gherkin'}
+      //   customStyle={{ padding: '1rem', fontSize: '14px', borderRadius: '5px' }}
+      //   wrapLines="false"
+      //   style={zTouch}
+
+      // >
+      //   {props.node.code}
+      // </SyntaxHighlighter>
     ),
 
     image: (asset) => (

@@ -111,31 +111,10 @@ export default function BlogPost({ data, read, relatedPost, author }) {
               >
                 {data.title}
               </Heading>
-              <Box sx={{ display: 'inline-flex' }}>
-                {data?.categories?.map((item, i) => (
-                  <Text
-                    key={i}
-                    sx={{
-                      marginRight: '10px',
-                      padding: '2px 6px',
-                      color: '#323444',
-                      backgroundColor: '#ffc35b',
-                      borderRadius: '5px',
-                      fontWeight: '500',
-                      letterSpacing: '1px',
-                      textAlign: 'center',
-                      minWidth: '45px',
-                      boxShadow: '4px 3px 14px 0px hsl(0deg 0% 13%)',
-                    }}
-                  >
-                    {item.title}
-                  </Text>
-                ))}
-              </Box>
               <Text as="p" variant="primaryText" sx={{ color: 'grey' }}>
                 {data.description}
               </Text>
-              <Flex sx={{ marginTop: '-10px' }}>
+              <Flex sx={{ marginTop: '-10px', paddingTop: '10px' }}>
                 <Links
                   sx={{ minWidth: 'auto' }}
                   path={data.author.name === 'PJ' ? '/' : '/thanchila'}
@@ -149,26 +128,51 @@ export default function BlogPost({ data, read, relatedPost, author }) {
 
                 <Text
                   as="p"
-                  variant="primaryText"
-                  sx={{ margin: '10px 0px', padding: '0px 10px 10px 10px' }}
+                  sx={{
+                    padding: '0px 10px 10px 10px',
+                    display: 'grid',
+                  }}
                 >
-                  Blog post by{' '}
-                  <span style={{ color: '#ffc35b' }}>{data.author.name}</span> •{' '}
-                  {new Date(data._createdAt).toLocaleDateString('en', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                  • <span style={{ color: '#ffc35b' }}>{read.text}</span>
+                  <span style={{ color: '#ffc35b' }}>{data.author.name}</span>
+                  <span>
+                    {' '}
+                    {new Date(data._createdAt).toLocaleDateString('en', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}{' '}
+                    • {read.text}
+                  </span>
                 </Text>
               </Flex>
-
               <PortableText
                 projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
                 dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
                 blocks={data?.body}
                 serializers={serializers}
               />
+              Tagged with:{' '}
+              <Box sx={{ display: 'inline-flex' }}>
+                {data?.categories?.map((item, i) => (
+                  <Text
+                    key={i}
+                    sx={{
+                      marginRight: '10px',
+                      padding: '2px 6px',
+                      color: '#323444',
+                      backgroundColor: '#ffc35b',
+                      borderRadius: '20px',
+                      fontWeight: '500',
+                      letterSpacing: '1px',
+                      textAlign: 'center',
+                      minWidth: '45px',
+                      boxShadow: '4px 3px 14px 0px hsl(0deg 0% 13%)',
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                ))}
+              </Box>
             </Box>
             <Flex>
               <Box

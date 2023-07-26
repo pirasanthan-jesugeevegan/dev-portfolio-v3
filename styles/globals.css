@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    @apply bg-primary;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/70;
+  }
+}
+
+@layer base {
+  :root {
+    --foreground: 0 0 100%;
+    --background: 233.33 15.25% 23.14%;
+    --primary: 38 100% 68%;
+    --primary-foreground: 233.33 15.25% 23.14%;
+  }
+}
+
+@layer base {
+  * {
+    @apply transition-all;
+  }
+  html,
+  body {
+    font-family: 'Montserrat';
+    color: white;
+  }
+  .sticky-div {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+}

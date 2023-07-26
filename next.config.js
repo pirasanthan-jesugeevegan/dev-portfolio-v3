@@ -1,9 +1,9 @@
-const withPlugins = require('next-compose-plugins');
-const optimizedImages = require('next-optimized-images');
-
-const nextConfiguration = {
-  target: 'serverless',
-  future: { webpack5: true },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
 };
 
-module.exports = withPlugins([optimizedImages], nextConfiguration);
+module.exports = nextConfig;
